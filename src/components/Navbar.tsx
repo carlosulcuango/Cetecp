@@ -91,36 +91,38 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-md py-3'
-          : 'bg-warmCream/90 backdrop-blur-sm py-3 border-b border-sage-100'
+          ? 'bg-white/95 backdrop-blur-md shadow-md py-4'
+          : 'bg-warmCream/90 backdrop-blur-sm py-4 border-b border-sage-100'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Logo & Brand */}
-          <Link
-            to="/"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              setServicesDropdownOpen(false);
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="flex items-center group focus:outline-none"
-          >
-            <img
-              src="/images/logo.png"
-              alt={CETECP_INFO.fullName}
-              className="h-14 md:h-16 w-auto max-w-[220px] md:max-w-[260px] object-contain py-1"
-            />
-          </Link>
+          {/* Zona Izquierda (Logo) */}
+          <div className="flex-1 flex items-center pr-4">
+            <Link
+              to="/"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setServicesDropdownOpen(false);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="flex items-center group focus:outline-none"
+            >
+              <img
+                src="/images/logo.png"
+                alt={CETECP_INFO.fullName}
+                className="h-12 md:h-14 w-auto max-w-[220px] object-contain"
+              />
+            </Link>
+          </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+          {/* Zona Centro (Menú de navegación) */}
+          <nav className="flex-1 justify-center hidden md:flex items-center space-x-6">
             <Link
               to="/"
               onClick={() => handleNavClick('#inicio')}
-              className="px-3 py-2 text-sm font-medium text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 transition-colors"
+              className="px-3 py-2 text-sm font-medium text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 transition-colors whitespace-nowrap"
             >
               Inicio
             </Link>
@@ -134,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
               <button
                 type="button"
                 onClick={() => handleNavClick('#servicios')}
-                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 transition-colors whitespace-nowrap"
                 aria-expanded={servicesDropdownOpen}
               >
                 <span>Servicios</span>
@@ -196,7 +198,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
             <button
               type="button"
               onClick={() => handleNavClick('#nosotros')}
-              className="px-3 py-2 text-sm font-medium text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 transition-colors"
+              className="px-3 py-2 text-sm font-medium text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 transition-colors whitespace-nowrap"
             >
               Sobre Nosotros
             </button>
@@ -204,7 +206,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
             <button
               type="button"
               onClick={() => handleNavClick('#equipo')}
-              className="px-3 py-2 text-sm font-medium text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 transition-colors"
+              className="px-3 py-2 text-sm font-medium text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 transition-colors whitespace-nowrap"
             >
               Nuestro Equipo
             </button>
@@ -212,18 +214,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
             <button
               type="button"
               onClick={() => handleNavClick('#contacto')}
-              className="px-3 py-2 text-sm font-medium text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 transition-colors"
+              className="px-3 py-2 text-sm font-medium text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 transition-colors whitespace-nowrap"
             >
               Contacto
             </button>
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Zona Derecha (Botón "Agendar Cita") */}
+          <div className="flex-1 justify-end hidden md:flex items-center">
             <button
               type="button"
               onClick={onOpenWhatsAppModal}
-              className="inline-flex items-center justify-center gap-2 bg-sage-600 hover:bg-sage-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-2 bg-sage-600 hover:bg-sage-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-[0.98] whitespace-nowrap"
             >
               <MessageCircle className="w-4 h-4" />
               <span>Agendar Cita</span>
