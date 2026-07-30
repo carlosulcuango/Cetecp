@@ -2,7 +2,6 @@ import React from 'react';
 import { 
   MapPin, 
   Mail, 
-  Phone, 
   MessageCircle, 
   Clock, 
   Heart, 
@@ -154,35 +153,35 @@ export const Footer: React.FC = () => {
             <h3 className="text-white text-base font-semibold border-b border-slateCustom-800 pb-2">
               Atención Profesional
             </h3>
-            <div className="space-y-4 text-xs">
-              {THERAPISTS.map((therapist) => (
-                <div
-                  key={therapist.id}
-                  className="p-3 bg-slateCustom-800/80 rounded-xl border border-slateCustom-700/60 space-y-1.5 hover:border-sage-500/50 transition-colors"
+            <div className="space-y-3 pt-1">
+              <a
+                href="https://wa.me/593981827618?text=Hola,%20deseo%20solicitar%20una%20consulta"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-medium py-3 px-4 rounded-xl shadow-sm transition-all duration-200"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Agendar Cita por WhatsApp</span>
+              </a>
+
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Atención personalizada para niños, adolescentes y adultos.
+              </p>
+
+              <div>
+                <a
+                  href="/#equipo"
+                  onClick={(e) => {
+                    if (window.location.pathname === '/') {
+                      e.preventDefault();
+                      handleNavClick('#equipo');
+                    }
+                  }}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors mt-2"
                 >
-                  <span className="font-semibold text-sm text-white block">
-                    {therapist.name}
-                  </span>
-                  <span className="text-sage-400 block font-medium">
-                    {therapist.title}
-                  </span>
-                  <div className="pt-1 flex items-center justify-between">
-                    <span className="text-slate-300 flex items-center gap-1 font-mono text-[11px]">
-                      <Phone className="w-3 h-3 text-sage-400" />
-                      {therapist.phone}
-                    </span>
-                    <a
-                      href={therapist.whatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 bg-emerald-700 hover:bg-emerald-800 text-white px-2.5 py-1 rounded-md text-[11px] font-semibold transition-colors"
-                    >
-                      <MessageCircle className="w-3 h-3" />
-                      <span>WhatsApp</span>
-                    </a>
-                  </div>
-                </div>
-              ))}
+                  <span>Ver todo nuestro equipo médico &rarr;</span>
+                </a>
+              </div>
             </div>
           </div>
 
