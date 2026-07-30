@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-20">
           
           {/* Logo & Brand */}
           <Link
@@ -111,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
             <img
               src="/images/logo.png"
               alt={CETECP_INFO.fullName}
-              className="h-10 md:h-12 w-auto object-contain"
+              className="h-14 md:h-16 w-auto max-w-[220px] md:max-w-[260px] object-contain py-1"
             />
           </Link>
 
