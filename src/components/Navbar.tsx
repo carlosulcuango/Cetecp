@@ -109,9 +109,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
             className="flex items-center gap-3 group focus:outline-none"
           >
             <img
-              src={CETECP_INFO.logoUrl}
+              src="/images/logo.jpeg"
               alt={CETECP_INFO.fullName}
-              className="w-10 h-10 rounded-xl object-cover shadow-sm border border-sage-200 group-hover:scale-105 transition-transform"
+              className="h-14 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform"
             />
             <div className="flex flex-col">
               <span className="font-bold text-xl tracking-tight text-slateCustom-900 leading-none">
