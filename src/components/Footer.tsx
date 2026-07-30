@@ -46,10 +46,10 @@ export const Footer: React.FC = () => {
 
             <div className="pt-2 flex items-center gap-3">
               <a
-                href="https://facebook.com"
+                href={CETECP_INFO.facebookUrl || "https://www.facebook.com/share/1AbPLvRGt6/"}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Facebook CETECP"
+                aria-label="Facebook de CETECP"
                 className="w-9 h-9 rounded-lg bg-slateCustom-800 hover:bg-sage-600 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -57,10 +57,10 @@ export const Footer: React.FC = () => {
                 </svg>
               </a>
               <a
-                href="https://instagram.com"
+                href={CETECP_INFO.instagramUrl || "https://www.instagram.com/psicetecp?igsh=bWJ2cjZyenhhdWR1"}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram CETECP"
+                aria-label="Instagram de CETECP"
                 className="w-9 h-9 rounded-lg bg-slateCustom-800 hover:bg-sage-600 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
