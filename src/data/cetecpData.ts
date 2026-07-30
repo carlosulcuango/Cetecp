@@ -90,7 +90,7 @@ export const THERAPISTS: Therapist[] = [
       "Acreditación para uso clínico de ADOS-2 (Hogrefe TEA Ediciones, Madrid)",
       "Detección temprana de Autismo y Escala Bayley-III (Pearson Clinical)",
     ],
-    image: "/images/alejandra.jpg",
+    image: "/images/alejandra.jpeg",
   },
   {
     id: "andriana-benitez",
