@@ -241,27 +241,95 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
           "Mejora significativa de la convivencia familiar."
         ]
       },
+    ],
+  },
+  {
+    id: "neuropsicologia",
+    title: "Neuropsicología y Neurodesarrollo",
+    iconName: "Brain",
+    description: "Evaluaciones neuropsicológicas especializadas, diagnóstico de TEA (ADOS-2 / ADI-R), rehabilitación cognitiva y atención integral al adulto mayor.",
+    services: [
       {
-        id: "eval-neuropsicologica",
-        title: "Evaluación Neuropsicológica y Neurodesarrollo",
-        description: "Valoración especializada de funciones cognitivas, neurodesarrollo, memoria y diagnóstico TEA (ADOS-2 / ADI-R).",
-        targetAudience: "Niños, Adolescentes y Adultos Mayores",
+        id: "eval-diagnostico-tea",
+        title: "Evaluación y Diagnóstico de TEA (ADOS-2 / ADI-R)",
+        description: "Diagnóstico del Espectro Autista mediante baterías estandarizadas acreditadas a nivel internacional.",
+        targetAudience: "Niños, Adolescentes y Adultos",
         assignedTherapistId: "alejandra-estrella",
-        overview: "Valoración clínica profunda y científica de las funciones neurocognitivas superiores (atención, memoria, lenguaje, funciones ejecutivas). Incluye evaluación del neurodesarrollo, diagnóstico de TEA con baterías estándar de oro (ADOS-2 y ADI-R) y evaluación en trastornos neurocognitivos en adultos mayores.",
+        overview: "Proceso clínico especializado para la detección y diagnóstico del Trastorno del Espectro Autista (TEA). Empleamos las herramientas estandarizadas de referencia internacional ADOS-2 y ADI-R para proporcionar un diagnóstico riguroso, empático y orientado al desarrollo de intervenciones individualizadas.",
         methodologies: [
-          "Baterías neuropsicológicas acreditadas (ADOS-2, ADI-R, Bayley-III).",
-          "Evaluación de funciones ejecutivas, memoria, atención y lenguaje.",
-          "Valoración de trastornos neurocognitivos en el envejecimiento.",
-          "Informe diagnóstico cuantitativo y cualitativo con plan de intervención."
+          "Entrevista clínica estructurada a padres o cuidadores mediante la prueba ADI-R.",
+          "Evaluación observacional directa e interactiva con el paciente mediante ADOS-2.",
+          "Análisis del perfil socio-comunicativo, patrones de conducta e intereses.",
+          "Informe diagnóstico formal cuantitativo y cualitativo con recomendaciones."
         ],
         benefits: [
-          "Claridad diagnóstica certera en TEA, dificultades del neurodesarrollo y memoria.",
-          "Identificación precisa del perfil cognitivo individual.",
-          "Intervención adecuada y personalizada acorde a las necesidades del paciente.",
-          "Estrategias empáticas para el hogar, escuela o entorno familiar."
+          "Diagnóstico certero avalado por baterías con estándar de oro internacional.",
+          "Comprensión profunda de las necesidades socio-emocionales y comunicativas.",
+          "Guía clara para adaptaciones escolares, tratamientos y apoyo familiar.",
+          "Atención humana y respetuosa adaptada a cada rango de edad."
         ]
       },
-    ],
+      {
+        id: "rehabilitacion-neuropsicologica",
+        title: "Rehabilitación Neuropsicológica",
+        description: "Intervención y estimulación de funciones cognitivas como atención, memoria, lenguaje y funciones ejecutivas.",
+        targetAudience: "Niños, Adolescentes y Adultos",
+        assignedTherapistId: "alejandra-estrella",
+        overview: "Programa de entrenamiento cognitivo diseñado para restaurar, compensar o mitigar alteraciones en las funciones cerebrales superiores. Permite potenciar la atención, memoria, flexibilidad mental y autorregulación tras dificultades del neurodesarrollo o secuelas neurocognitivas.",
+        methodologies: [
+          "Diseño de plan de rehabilitación neuropsicológica individualizado.",
+          "Entrenamiento en funciones ejecutivas, control inhibitorio y memoria de trabajo.",
+          "Uso de técnicas de estimulación cognitiva validadas y estrategias compensatorias.",
+          "Seguimiento periódico de avances con reevaluaciones periódicas."
+        ],
+        benefits: [
+          "Mejora en el rendimiento académico, laboral y en las actividades cotidianas.",
+          "Fortalecimiento de la concentración, organización y planificación.",
+          "Estrategias prácticas para afrontar olvidos o distracciones.",
+          "Mayor autonomía y confianza en el desempeño diario."
+        ]
+      },
+      {
+        id: "eval-trastornos-neurocognitivos",
+        title: "Evaluación de Trastornos Neurocognitivos",
+        description: "Valoración del deterioro cognitivo leve, demencias y perfil neuropsicológico en adultos y adultos mayores.",
+        targetAudience: "Adultos y Adultos Mayores",
+        assignedTherapistId: "alejandra-estrella",
+        overview: "Valoración neuropsicológica exhaustiva para identificar cambios en la memoria, orientación, juicio y razonamiento. Permite diferenciar entre el envejecimiento normal, deterioro cognitivo leve y síndromes demenciales.",
+        methodologies: [
+          "Análisis de la historia clínica neurocognitiva y antecedentes del paciente.",
+          "Batería de pruebas neuropsicológicas estandarizadas para memoria, lenguaje y atención.",
+          "Evaluación de la autonomía funcional en actividades de la vida diaria.",
+          "Informe clínico detallado para la familia y médicos tratantes (neurología/geriatría)."
+        ],
+        benefits: [
+          "Detección oportuna de signos de deterioro cognitivo.",
+          "Claridad médica y familiar sobre el estado de salud neurocognitivo.",
+          "Recomendaciones para ralentizar el avance del deterioro y mantener la funcionalidad.",
+          "Orientación empática a la familia para el cuidado y acompañamiento."
+        ]
+      },
+      {
+        id: "atencion-adulto-mayor",
+        title: "Atención al Adulto Mayor y Envejecimiento",
+        description: "Acompañamiento integral y estimulación cognitiva para un envejecimiento activo, saludable y digno.",
+        targetAudience: "Adultos Mayores y Grupo Familiar",
+        assignedTherapistId: "alejandra-estrella",
+        overview: "Servicio especializado orientado al bienestar cognitivo y emocional de las personas adultas mayores. Ofrecemos talleres de mantenimiento cognitivo, psicoeducación a cuidadores y apoyo emocional ante las transiciones del envejecimiento.",
+        methodologies: [
+          "Talleres individuales o grupales de mantenimiento y reserva cognitiva.",
+          "Estrategias de estimulación sensorial y fortalecimiento de la memoria afectiva.",
+          "Asesoría a cuidadores y familias para adaptar el entorno del hogar.",
+          "Acompañamiento emocional centrado en la dignidad y autovaloración."
+        ],
+        benefits: [
+          "Preservación de la independencia y calidad de vida en el adulto mayor.",
+          "Estimulación constante para mantener la mente activa y saludable.",
+          "Reducción del aislamiento social y estados depresivos en la vejez.",
+          "Pautas concretas de manejo para la familia y cuidadores principales."
+        ]
+      }
+    ]
   },
   {
     id: "terapias-infantiles",

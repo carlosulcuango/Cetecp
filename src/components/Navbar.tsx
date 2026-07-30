@@ -5,6 +5,7 @@ import {
   X, 
   ChevronDown, 
   ClipboardCheck, 
+  Brain,
   Sparkles, 
   HeartHandshake, 
   Users, 
@@ -14,6 +15,7 @@ import { SERVICE_CATEGORIES, CETECP_INFO } from '../data/cetecpData';
 
 const iconMap: Record<string, React.ReactNode> = {
   ClipboardCheck: <ClipboardCheck className="w-5 h-5 text-sage-600" />,
+  Brain: <Brain className="w-5 h-5 text-sage-600" />,
   Sparkles: <Sparkles className="w-5 h-5 text-sage-600" />,
   HeartHandshake: <HeartHandshake className="w-5 h-5 text-sage-600" />,
   Users: <Users className="w-5 h-5 text-sage-600" />
@@ -149,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
 
               {/* Mega Dropdown Panel */}
               {servicesDropdownOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[850px] bg-white rounded-2xl shadow-xl border border-sage-100 p-6 grid grid-cols-4 gap-6 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[1020px] max-w-[95vw] bg-white rounded-2xl shadow-xl border border-sage-100 p-6 grid grid-cols-5 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
                   {SERVICE_CATEGORIES.map((category) => (
                     <div key={category.id} className="flex flex-col space-y-3">
                       <button
@@ -158,7 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
                         className="flex items-center gap-2 pb-2 border-b border-sage-100 text-left group hover:border-sage-400 transition-colors w-full"
                       >
                         {iconMap[category.iconName]}
-                        <h4 className="font-semibold text-sm text-slateCustom-900 group-hover:text-sage-600 transition-colors">
+                        <h4 className="font-semibold text-sm text-slateCustom-900 group-hover:text-sage-600 transition-colors leading-snug">
                           {category.title}
                         </h4>
                       </button>
@@ -179,7 +181,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
                     </div>
                   ))}
 
-                  <div className="col-span-4 bg-sage-50 rounded-xl p-3 flex items-center justify-between border border-sage-100 mt-2">
+                  <div className="col-span-5 bg-sage-50 rounded-xl p-3 flex items-center justify-between border border-sage-100 mt-2">
                     <span className="text-xs font-medium text-slateCustom-800">
                       ¿Necesitas orientación para saber qué terapia es adecuada?
                     </span>
