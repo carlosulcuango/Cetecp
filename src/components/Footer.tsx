@@ -27,9 +27,9 @@ export const Footer: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <img
-                src={CETECP_INFO.logoUrl}
-                alt={CETECP_INFO.fullName}
-                className="w-10 h-10 rounded-xl object-cover shadow-sm border border-slateCustom-700"
+                src="/images/logo.png"
+                alt="Logo de CETECP"
+                className="h-10 w-auto object-contain"
               />
               <div className="flex flex-col">
                 <span className="font-bold text-xl text-white tracking-tight">

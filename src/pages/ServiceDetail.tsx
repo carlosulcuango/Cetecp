@@ -60,7 +60,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ onOpenWhatsAppModa
       )}`;
 
   return (
-    <main className="min-h-screen w-full bg-warmCream/20 text-slateCustom-900 pt-20">
+    <main className="min-h-screen w-full bg-warmCream/20 text-slateCustom-900 pt-24 md:pt-28 pb-12">
       
       {/* ================= HERO / CABECERA OSCURA SUPERIOR ================= */}
       <section className="w-full bg-slateCustom-900 text-white py-14 lg:py-20 px-4 sm:px-6 lg:px-8 border-b border-slateCustom-800 relative overflow-hidden">
