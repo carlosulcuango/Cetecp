@@ -109,9 +109,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
             className="flex items-center group focus:outline-none"
           >
             <img
-              src="/images/logo.jpeg"
+              src="/images/logo.png"
               alt={CETECP_INFO.fullName}
-              className="w-48 md:w-64 h-auto object-contain -my-4"
+              className="h-10 md:h-12 w-auto object-contain"
             />
           </Link>
 
