@@ -148,19 +148,19 @@ export const Home: React.FC<HomeProps> = ({
                 <div className="flex items-center justify-center lg:justify-start text-sage-600 gap-1 font-bold text-sm">
                   <ShieldCheck className="w-4 h-4" /> 100%
                 </div>
-                <p className="text-xs text-slate-500 font-medium">Confidencial</p>
+                <p className="text-xs text-slate-700 font-medium">Confidencial</p>
               </div>
               <div className="space-y-1">
                 <div className="flex items-center justify-center lg:justify-start text-sage-600 gap-1 font-bold text-sm">
                   <UserCheck className="w-4 h-4" /> Especialistas
                 </div>
-                <p className="text-xs text-slate-500 font-medium">Certificadas</p>
+                <p className="text-xs text-slate-700 font-medium">Certificadas</p>
               </div>
               <div className="space-y-1">
                 <div className="flex items-center justify-center lg:justify-start text-sage-600 gap-1 font-bold text-sm">
                   <Heart className="w-4 h-4" /> Atención
                 </div>
-                <p className="text-xs text-slate-500 font-medium">Personalizada</p>
+                <p className="text-xs text-slate-700 font-medium">Personalizada</p>
               </div>
             </div>
 
@@ -180,9 +180,9 @@ export const Home: React.FC<HomeProps> = ({
                   <span className="text-[10px] font-extrabold text-sage-600 uppercase tracking-widest bg-sage-50 px-2.5 py-1 rounded-md border border-sage-200">
                     Experiencias Reales
                   </span>
-                  <h3 className="font-bold text-lg text-slateCustom-900 mt-1">
+                  <h2 className="font-bold text-lg text-slateCustom-900 mt-1">
                     Opiniones de Pacientes
-                  </h3>
+                  </h2>
                 </div>
 
                 <div className="text-right">
@@ -205,7 +205,7 @@ export const Home: React.FC<HomeProps> = ({
                       <span className="text-xs font-bold text-slateCustom-800 block mt-0.5">
                         {formattedAverage} / 5.0
                       </span>
-                      <span className="text-[10px] text-slate-500 block">
+                      <span className="text-[10px] text-slate-700 font-semibold block">
                         {totalReviews} {totalReviews === 1 ? 'Reseña registrada' : 'Reseñas registradas'}
                       </span>
                     </>
@@ -214,7 +214,7 @@ export const Home: React.FC<HomeProps> = ({
                       <span className="text-xs font-bold text-sage-600 block mt-0.5">
                         Sé el primero en calificar
                       </span>
-                      <span className="text-[10px] text-slate-400 block">
+                      <span className="text-[10px] text-slate-700 font-semibold block">
                         0 Reseñas aún
                       </span>
                     </>
@@ -229,10 +229,10 @@ export const Home: React.FC<HomeProps> = ({
                     <MessageSquarePlus className="w-6 h-6" />
                   </div>
                   <div className="space-y-1 max-w-sm">
-                    <h4 className="font-bold text-sm text-slateCustom-900">
+                    <h3 className="font-bold text-sm text-slateCustom-900">
                       ¡Sé el primero en compartir tu experiencia!
-                    </h4>
-                    <p className="text-xs text-slate-500 leading-relaxed">
+                    </h3>
+                    <p className="text-xs text-slate-700 leading-relaxed">
                       Tu testimonio ayuda a otras personas y familias a dar el primer paso hacia su bienestar emocional en CETECP.
                     </p>
                   </div>
@@ -277,7 +277,7 @@ export const Home: React.FC<HomeProps> = ({
                           </span>
                         </div>
                       </div>
-                      <span className="text-[10px] text-slate-400 font-mono">
+                      <span className="text-[10px] text-slate-700 font-semibold font-mono">
                         {currentReview.date}
                       </span>
                     </div>
@@ -532,7 +532,7 @@ export const Home: React.FC<HomeProps> = ({
               <button
                 type="button"
                 onClick={onOpenWhatsAppModal}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-5 py-2.5 rounded-xl shadow-sm inline-flex items-center gap-2 self-start sm:self-auto shrink-0"
+                className="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-5 py-2.5 rounded-xl shadow-sm inline-flex items-center gap-2 self-start sm:self-auto shrink-0"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>Consultar por esta Área</span>
@@ -570,7 +570,7 @@ export const Home: React.FC<HomeProps> = ({
                     </div>
 
                     <div className="pt-3 flex items-center justify-between border-t border-sage-100/60 mt-4">
-                      <span className="text-[11px] text-slate-400 font-medium">CETECP Quito</span>
+                      <span className="text-[11px] text-slate-700 font-semibold">CETECP Quito</span>
                       <span className="text-xs font-bold text-sage-700 group-hover:text-sage-800 flex items-center gap-1">
                         <span>Ver detalle</span>
                         <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -719,7 +719,7 @@ export const Home: React.FC<HomeProps> = ({
                     href={therapist.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs py-2.5 px-4 rounded-xl shadow-sm transition-colors"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs py-2.5 px-4 rounded-xl shadow-sm transition-colors"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Agendar Consulta</span>
@@ -771,14 +771,14 @@ export const Home: React.FC<HomeProps> = ({
                     <div>
                       <span className="font-bold text-slateCustom-900 block">Dirección:</span>
                       <span className="text-slate-600 block">{CETECP_INFO.location}</span>
-                      <span className="text-[11px] text-slate-400 font-mono block mt-0.5">Código Plus: XHQ3+4JM Quito</span>
+                      <span className="text-[11px] text-slate-700 font-semibold font-mono block mt-0.5">Código Plus: XHQ3+4JM Quito</span>
                     </div>
                   </div>
                   <a
                     href={CETECP_INFO.googleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-3 py-2 rounded-xl shadow-sm transition-all hover:shadow-md shrink-0"
+                    className="inline-flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs px-3 py-2 rounded-xl shadow-sm transition-all hover:shadow-md shrink-0"
                   >
                     <MapPin className="w-3.5 h-3.5" />
                     <span>Cómo llegar</span>

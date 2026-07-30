@@ -175,7 +175,7 @@ export const Footer: React.FC = () => {
                       href={therapist.whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-md text-[11px] font-semibold transition-colors"
+                      className="inline-flex items-center gap-1 bg-emerald-700 hover:bg-emerald-800 text-white px-2.5 py-1 rounded-md text-[11px] font-semibold transition-colors"
                     >
                       <MessageCircle className="w-3 h-3" />
                       <span>WhatsApp</span>

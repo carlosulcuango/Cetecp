@@ -97,7 +97,7 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({ isOpen, onClose })
                       href={therapist.whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-sm transition-all group-hover:scale-[1.02]"
+                      className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-sm transition-all group-hover:scale-[1.02]"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Contactar por WhatsApp</span>
@@ -111,7 +111,7 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({ isOpen, onClose })
 
           <div className="p-3.5 bg-sage-50/80 rounded-2xl border border-sage-200/60 flex items-center gap-3">
             <ShieldCheck className="w-5 h-5 text-sage-600 shrink-0" />
-            <p className="text-[11px] text-slate-600 leading-snug">
+            <p className="text-[11px] text-slate-700 font-semibold leading-snug">
               Atención 100% confidencial y profesional. Todas las consultas son recibidas directamente por las especialistas.
             </p>
           </div>
@@ -122,7 +122,7 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({ isOpen, onClose })
           <button
             type="button"
             onClick={onClose}
-            className="text-xs font-semibold text-slate-500 hover:text-slate-700 transition-colors"
+            className="text-xs font-semibold text-slate-700 hover:text-slate-900 transition-colors"
           >
             Cerrar ventana
           </button>

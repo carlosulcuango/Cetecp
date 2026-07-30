@@ -124,7 +124,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onAdd
               {/* Author / Alias */}
               <div className="space-y-1">
                 <label htmlFor="review-author" className="text-xs font-bold text-slateCustom-800 block">
-                  Tu Nombre o Iniciales <span className="text-slate-400 font-normal">(Opcional por confidencialidad)</span>
+                  Tu Nombre o Iniciales <span className="text-slate-700 font-medium">(Opcional por confidencialidad)</span>
                 </label>
                 <input
                   id="review-author"
