@@ -53,16 +53,18 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({ isOpen, onClose })
               className="bg-white rounded-2xl p-5 border border-sage-200/80 shadow-sm hover:shadow-md transition-all hover:border-sage-400 group"
             >
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-sage-100 text-sage-700 font-bold text-lg flex items-center justify-center shrink-0 border border-sage-200">
-                  {therapist.name.split(' ').slice(1, 3).map(n => n[0]).join('')}
-                </div>
+                <img
+                  src={therapist.image}
+                  alt={therapist.name}
+                  className="w-14 h-14 rounded-2xl object-cover shrink-0 border border-sage-200 shadow-sm"
+                />
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
                     <h4 className="font-bold text-slateCustom-900 text-base group-hover:text-sage-700 transition-colors truncate">
                       {therapist.name}
                     </h4>
-                    <span className="inline-flex items-center gap-1 text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md font-medium border border-emerald-200/60">
+                    <span className="inline-flex items-center gap-1 text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md font-medium border border-emerald-200/60 shrink-0">
                       <UserCheck className="w-3 h-3" />
                       Disponible
                     </span>
@@ -90,13 +92,14 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({ isOpen, onClose })
                   <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
                     <span className="text-xs font-mono text-slateCustom-800 flex items-center gap-1.5 font-medium">
                       <Phone className="w-3.5 h-3.5 text-sage-600" />
-                      {therapist.phone}
+                      {therapist.phone || '098 182 7618'}
                     </span>
 
                     <a
                       href={therapist.whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Contactar a ${therapist.name} por WhatsApp`}
                       className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-sm transition-all group-hover:scale-[1.02]"
                     >
                       <MessageCircle className="w-4 h-4" />

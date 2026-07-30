@@ -21,8 +21,11 @@ export interface Therapist {
   phone?: string;
   phoneRaw?: string;
   whatsappUrl: string;
+  email?: string;
+  linkedinUrl?: string;
   bio: string;
   specialties: string[];
+  education?: string[];
   image: string;
 }
 
@@ -65,6 +68,31 @@ export const CETECP_INFO: CetecpInfo = {
 
 export const THERAPISTS: Therapist[] = [
   {
+    id: "alejandra-estrella",
+    name: "MSc. María Alejandra Estrella Mero",
+    title: "NEUROPSICÓLOGA CLÍNICA",
+    phone: "098 182 7618",
+    phoneRaw: "593981827618",
+    email: "aleestrella829@gmail.com",
+    linkedinUrl: "https://www.linkedin.com/in/mariaestrella20",
+    whatsappUrl:
+      "https://wa.me/593981827618?text=Hola,%20deseo%20solicitar%20una%20consulta%20con%20la%20MSc.%20Mar%C3%ADa%20Alejandra%20Estrella%20Mero%20en%20CETECP",
+    bio: "Neuropsicóloga clínica con un enfoque integral, orientada a comprender el perfil individual de cada paciente. Práctica humana, empática y minuciosa para aportar claridad diagnóstica e intervención adecuada en niños, adolescentes y adultos mayores.",
+    specialties: [
+      "Evaluación neuropsicológica en Trastornos Neurocognitivos (envejecimiento/adulto mayor)",
+      "Evaluación del Neurodesarrollo y población infanto-juvenil",
+      "Diagnóstico especializado de TEA mediante baterías acreditadas ADOS-2 y ADI-R",
+      "Evaluación e intervención en dificultades cognitivas y del aprendizaje",
+    ],
+    education: [
+      "MSc. en Neuropsicología Clínica - Universidad Internacional de La Rioja (UNIR)",
+      "Licenciada en Psicología Clínica - Universidad de Las Américas (UDLA)",
+      "Acreditación para uso clínico de ADOS-2 (Hogrefe TEA Ediciones, Madrid)",
+      "Detección temprana de Autismo y Escala Bayley-III (Pearson Clinical)",
+    ],
+    image: "/images/alejandra.jpg",
+  },
+  {
     id: "andriana-benitez",
     name: "Lic. Andriana Benítez",
     title: "PSICÓLOGA INFANTIL & PSICOREHABILITADORA",
@@ -76,6 +104,10 @@ export const THERAPISTS: Therapist[] = [
       "Psicorehabilitación",
       "Regulación Afectiva",
       "Adaptación Escolar",
+    ],
+    education: [
+      "Licenciada en Psicología Infantil y Psicorehabilitación",
+      "Especialista en desarrollo infanto-juvenil y regulación afectiva",
     ],
     image: "/images/andriana.jpeg",
   },
@@ -91,6 +123,10 @@ export const THERAPISTS: Therapist[] = [
       "Comunicación Asertiva",
       "Resolución de Conflictos",
       "Procesos Conductuales",
+    ],
+    education: [
+      "Licenciada en Psicología General",
+      "Especialista en apoyo clínico conductual infanto-juvenil y familiar",
     ],
     image: "/images/daniela.jpeg",
   },
@@ -109,6 +145,10 @@ export const THERAPISTS: Therapist[] = [
       "Manejo de Ansiedad y Depresión",
       "Duelo y Conflictos Afectivos",
     ],
+    education: [
+      "Licenciada en Psicología General",
+      "Especialista en Psicoterapia Individual, Pareja y Trastornos del Estado de Ánimo",
+    ],
     image: "/images/jazmin.jpeg",
   },
   {
@@ -125,6 +165,10 @@ export const THERAPISTS: Therapist[] = [
       "Psicopedagogía e Intervención TDAH",
       "Lectoescritura",
       "Razonamiento Cognitivo",
+    ],
+    education: [
+      "Licenciada en Psicología Educativa",
+      "Especialista en Trastornos del Aprendizaje y Diagnóstico Psicopedagógico",
     ],
     image: "/images/lizbeth.jpeg",
   },
@@ -199,22 +243,22 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       },
       {
         id: "eval-neuropsicologica",
-        title: "Perfil de Madurez Neuropsicológica",
-        description: "Valoración de memoria, atención, funciones ejecutivas y lenguaje.",
-        targetAudience: "Infantil y Juvenil",
-        assignedTherapistId: "lizbeth-ulcuango",
-        overview: "Valoración especializada del grado de madurez de los procesos neurocognitivos superiores. Permite conocer la organización del sistema nervioso infantil en aspectos de memoria inmediata y de trabajo, flexibilidad cognitiva, gnosias y praxias.",
+        title: "Evaluación Neuropsicológica y Neurodesarrollo",
+        description: "Valoración especializada de funciones cognitivas, neurodesarrollo, memoria y diagnóstico TEA (ADOS-2 / ADI-R).",
+        targetAudience: "Niños, Adolescentes y Adultos Mayores",
+        assignedTherapistId: "alejandra-estrella",
+        overview: "Valoración clínica profunda y científica de las funciones neurocognitivas superiores (atención, memoria, lenguaje, funciones ejecutivas). Incluye evaluación del neurodesarrollo, diagnóstico de TEA con baterías estándar de oro (ADOS-2 y ADI-R) y evaluación en trastornos neurocognitivos en adultos mayores.",
         methodologies: [
-          "Baterías neuropsicológicas infanto-juveniles validadas internacionalmente.",
-          "Pruebas de funciones ejecutivas (planificación, control inhibitorio, flexibilidad).",
-          "Medición del dominio psicomotor fineza y lateralidad.",
-          "Emisión de perfil neuropsicológico y guía de estimulación."
+          "Baterías neuropsicológicas acreditadas (ADOS-2, ADI-R, Bayley-III).",
+          "Evaluación de funciones ejecutivas, memoria, atención y lenguaje.",
+          "Valoración de trastornos neurocognitivos en el envejecimiento.",
+          "Informe diagnóstico cuantitativo y cualitativo con plan de intervención."
         ],
         benefits: [
-          "Detección temprana de inmadurez neurocognitiva para prevenir fallas académicas.",
-          "Estimulación cerebral focalizada en las áreas de oportunidad del niño.",
-          "Optimización de la capacidad de concentración y resolución de problemas.",
-          "Base científica sólida para intervenciones interdisciplinarias."
+          "Claridad diagnóstica certera en TEA, dificultades del neurodesarrollo y memoria.",
+          "Identificación precisa del perfil cognitivo individual.",
+          "Intervención adecuada y personalizada acorde a las necesidades del paciente.",
+          "Estrategias empáticas para el hogar, escuela o entorno familiar."
         ]
       },
     ],

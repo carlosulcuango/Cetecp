@@ -20,10 +20,19 @@ import {
   ChevronLeft,
   Star,
   Quote,
-  MessageSquarePlus
+  MessageSquarePlus,
+  GraduationCap,
+  X,
+  ExternalLink
 } from 'lucide-react';
-import { CETECP_INFO, THERAPISTS, SERVICE_CATEGORIES, ServiceCategory } from '../data/cetecpData';
+import { CETECP_INFO, THERAPISTS, SERVICE_CATEGORIES, ServiceCategory, Therapist } from '../data/cetecpData';
 import { ReviewModal } from '../components/ReviewModal';
+
+const LinkedinIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+  </svg>
+);
 
 export interface PatientReview {
   id: string;
@@ -52,6 +61,7 @@ export const Home: React.FC<HomeProps> = ({
   const [reviews, setReviews] = useState<PatientReview[]>(INITIAL_REVIEWS);
   const [currentReviewIndex, setCurrentReviewIndex] = useState<number>(0);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState<boolean>(false);
+  const [selectedTherapist, setSelectedTherapist] = useState<Therapist | null>(null);
 
   const activeCategoryData: ServiceCategory = 
     SERVICE_CATEGORIES.find(cat => cat.id === activeCategoryTab) || SERVICE_CATEGORIES[0];
@@ -691,35 +701,70 @@ export const Home: React.FC<HomeProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
             {THERAPISTS.map((therapist) => (
               <div
                 key={therapist.id}
-                className="bg-white rounded-3xl pt-8 pb-6 px-6 shadow-sm border border-stone-100 hover:shadow-md transition-all duration-200 flex flex-col justify-between text-center"
+                className="bg-white rounded-3xl pt-8 pb-6 px-5 shadow-sm border border-stone-200/80 hover:shadow-md transition-all duration-200 flex flex-col justify-between text-center group"
               >
                 <div>
                   <img
                     src={therapist.image}
                     alt={therapist.name}
-                    className="w-48 h-48 rounded-full border-4 border-emerald-600/20 object-cover mx-auto mb-4 shadow-md"
+                    className="w-40 h-40 sm:w-44 sm:h-44 rounded-full border-4 border-emerald-600/20 object-cover mx-auto mb-4 shadow-md group-hover:scale-105 transition-transform duration-200"
                   />
-                  <h3 className="font-bold text-lg text-slateCustom-900 mb-1">
+                  <h3 className="font-bold text-base sm:text-lg text-slateCustom-900 mb-1 leading-snug">
                     {therapist.name}
                   </h3>
-                  <span className="text-emerald-700 font-bold text-xs uppercase tracking-wider mb-3 block">
+                  <span className="text-emerald-700 font-bold text-[11px] uppercase tracking-wider mb-3 block min-h-[28px]">
                     {therapist.title}
                   </span>
-                  <p className="text-xs text-slate-600 leading-relaxed mb-6">
+                  <p className="text-xs text-slate-600 leading-relaxed mb-4 line-clamp-4 text-left px-1">
                     {therapist.bio}
                   </p>
+
+                  {/* Social and Contact Badges */}
+                  <div className="flex items-center justify-center gap-2 mb-5">
+                    {therapist.email && (
+                      <a
+                        href={`mailto:${therapist.email}`}
+                        aria-label={`Enviar correo a ${therapist.name}`}
+                        className="w-8 h-8 rounded-full bg-sage-50 hover:bg-sage-100 text-sage-700 flex items-center justify-center transition-colors border border-sage-200/80"
+                        title={therapist.email}
+                      >
+                        <Mail className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                    {therapist.linkedinUrl && (
+                      <a
+                        href={therapist.linkedinUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Perfil de LinkedIn de ${therapist.name}`}
+                        className="w-8 h-8 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-700 flex items-center justify-center transition-colors border border-blue-200/80"
+                        title="Ver LinkedIn"
+                      >
+                        <LinkedinIcon className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedTherapist(therapist)}
+                      aria-label={`Ver perfil completo de ${therapist.name}`}
+                      className="text-[11px] font-semibold text-sage-700 hover:text-sage-900 bg-sage-50 px-2.5 py-1 rounded-full border border-sage-200 flex items-center gap-1"
+                    >
+                      <span>Perfil / Formación</span>
+                    </button>
+                  </div>
                 </div>
 
-                <div className="pt-2">
+                <div className="pt-2 space-y-2">
                   <a
                     href={therapist.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs py-2.5 px-4 rounded-xl shadow-sm transition-colors"
+                    aria-label={`Agendar consulta por WhatsApp con ${therapist.name}`}
+                    className="w-full inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs py-2.5 px-3 rounded-xl shadow-sm transition-colors"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Agendar Consulta</span>
@@ -778,6 +823,7 @@ export const Home: React.FC<HomeProps> = ({
                     href={CETECP_INFO.googleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Abrir mapa de Google Maps para llegar a CETECP"
                     className="inline-flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs px-3 py-2 rounded-xl shadow-sm transition-all hover:shadow-md shrink-0"
                   >
                     <MapPin className="w-3.5 h-3.5" />
@@ -820,14 +866,15 @@ export const Home: React.FC<HomeProps> = ({
                       href={t.whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Contactar a ${t.name} por WhatsApp`}
                       className="p-3 bg-white hover:bg-emerald-50 rounded-xl border border-sage-200 flex flex-col justify-between transition-colors group"
                     >
-                      <span className="text-xs font-bold text-slateCustom-900 group-hover:text-emerald-700">
+                      <span className="text-xs font-bold text-slateCustom-900 group-hover:text-emerald-700 truncate">
                         {t.name}
                       </span>
                       <span className="text-[11px] text-emerald-600 font-mono font-semibold flex items-center gap-1 mt-1">
-                        <MessageCircle className="w-3.5 h-3.5" />
-                        {t.phone}
+                        <MessageCircle className="w-3.5 h-3.5 shrink-0" />
+                        {t.phone || '098 182 7618'}
                       </span>
                     </a>
                   ))}
@@ -856,7 +903,155 @@ export const Home: React.FC<HomeProps> = ({
         </div>
       </section>
 
-      {/* Dynamic Modal for Submitting a New Patient Review */}
+
+      {/* ================= MODAL DE DETALLE DE ESPECIALISTA ================= */}
+      {selectedTherapist && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slateCustom-900/60 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setSelectedTherapist(null)}
+        >
+          <div 
+            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-sage-100 overflow-hidden transform animate-in zoom-in-95 duration-200 max-h-[90vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="bg-gradient-to-r from-sage-600 to-sage-700 text-white p-6 sm:p-8 relative shrink-0">
+              <button
+                type="button"
+                onClick={() => setSelectedTherapist(null)}
+                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors focus:outline-none"
+                aria-label="Cerrar modal de especialista"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="flex items-center gap-4">
+                <img
+                  src={selectedTherapist.image}
+                  alt={selectedTherapist.name}
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white/30 object-cover shadow-lg shrink-0"
+                />
+                <div>
+                  <span className="text-[11px] font-extrabold uppercase tracking-widest bg-emerald-500/30 text-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-400/30 inline-block mb-1">
+                    Perfil Profesional
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-tight">
+                    {selectedTherapist.name}
+                  </h3>
+                  <p className="text-sage-100 text-xs sm:text-sm font-medium mt-0.5">
+                    {selectedTherapist.title}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Body scrollable */}
+            <div className="p-6 sm:p-8 space-y-6 overflow-y-auto bg-warmCream/20">
+              {/* Contact Links */}
+              <div className="flex flex-wrap items-center gap-3 pt-1 border-b border-sage-200/60 pb-5">
+                <a
+                  href={selectedTherapist.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Agendar consulta por WhatsApp con ${selectedTherapist.name}`}
+                  className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Agendar Consulta por WhatsApp</span>
+                </a>
+
+                {selectedTherapist.email && (
+                  <a
+                    href={`mailto:${selectedTherapist.email}`}
+                    aria-label={`Enviar correo electrónico a ${selectedTherapist.name}`}
+                    className="inline-flex items-center gap-2 bg-white hover:bg-sage-50 text-slateCustom-800 text-xs font-semibold px-4 py-2.5 rounded-xl border border-sage-200 shadow-sm transition-colors"
+                  >
+                    <Mail className="w-4 h-4 text-sage-600" />
+                    <span>{selectedTherapist.email}</span>
+                  </a>
+                )}
+
+                {selectedTherapist.linkedinUrl && (
+                  <a
+                    href={selectedTherapist.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Perfil de LinkedIn de ${selectedTherapist.name}`}
+                    className="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-colors"
+                  >
+                    <LinkedinIcon className="w-4 h-4" />
+                    <span>Perfil LinkedIn</span>
+                    <ExternalLink className="w-3 h-3 opacity-80" />
+                  </a>
+                )}
+              </div>
+
+              {/* Bio */}
+              <div className="space-y-2">
+                <h4 className="text-xs font-extrabold uppercase tracking-widest text-sage-700 flex items-center gap-1.5">
+                  <UserCheck className="w-4 h-4 text-sage-600" />
+                  Sobre mí
+                </h4>
+                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed bg-white p-4 rounded-2xl border border-sage-100 shadow-xs">
+                  {selectedTherapist.bio}
+                </p>
+              </div>
+
+              {/* Specialties */}
+              {selectedTherapist.specialties && selectedTherapist.specialties.length > 0 && (
+                <div className="space-y-3">
+                  <h4 className="text-xs font-extrabold uppercase tracking-widest text-sage-700 flex items-center gap-1.5">
+                    <Award className="w-4 h-4 text-sage-600" />
+                    Especialidades y Servicios
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {selectedTherapist.specialties.map((spec: string, i: number) => (
+                      <div key={i} className="flex items-start gap-2.5 bg-white p-3 rounded-xl border border-sage-100 text-xs font-semibold text-slateCustom-900">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <span>{spec}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Education */}
+              {selectedTherapist.education && selectedTherapist.education.length > 0 && (
+                <div className="space-y-3">
+                  <h4 className="text-xs font-extrabold uppercase tracking-widest text-sage-700 flex items-center gap-1.5">
+                    <GraduationCap className="w-4 h-4 text-sage-600" />
+                    Formación Destacada
+                  </h4>
+                  <div className="space-y-2">
+                    {selectedTherapist.education.map((edu: string, i: number) => (
+                      <div key={i} className="flex items-start gap-3 bg-white p-3.5 rounded-xl border border-sage-100 text-xs text-slate-800 font-medium">
+                        <div className="w-5 h-5 rounded-full bg-sage-100 text-sage-700 flex items-center justify-center shrink-0 mt-0.5">
+                          <GraduationCap className="w-3.5 h-3.5" />
+                        </div>
+                        <span>{edu}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="p-4 bg-slateCustom-50 border-t border-sage-100 text-center shrink-0">
+              <button
+                type="button"
+                onClick={() => setSelectedTherapist(null)}
+                className="text-xs font-semibold text-slate-700 hover:text-slate-900 transition-colors"
+                aria-label="Cerrar modal"
+              >
+                Cerrar perfil
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Review Modal */}
       <ReviewModal
         isOpen={isReviewModalOpen}
         onClose={() => setIsReviewModalOpen(false)}
