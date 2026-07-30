@@ -111,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
             <img
               src="/images/logo.jpeg"
               alt={CETECP_INFO.fullName}
-              className="h-12 md:h-16 w-auto object-contain py-1 group-hover:scale-105 transition-transform"
+              className="h-20 md:h-28 w-auto object-contain py-2 group-hover:scale-105 transition-transform"
             />
           </Link>
 
