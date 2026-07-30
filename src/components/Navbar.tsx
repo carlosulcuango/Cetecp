@@ -106,21 +106,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
               setServicesDropdownOpen(false);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="flex items-center gap-3 group focus:outline-none"
+            className="flex items-center group focus:outline-none"
           >
             <img
               src="/images/logo.jpeg"
               alt={CETECP_INFO.fullName}
-              className="h-14 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform"
+              className="h-12 md:h-14 w-auto object-contain group-hover:scale-105 transition-transform"
             />
-            <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight text-slateCustom-900 leading-none">
-                {CETECP_INFO.name}
-              </span>
-              <span className="text-[10px] font-medium text-sage-600 tracking-wider uppercase mt-1">
-                Centro Psicológico Integral
-              </span>
-            </div>
           </Link>
 
           {/* Desktop Navigation */}
