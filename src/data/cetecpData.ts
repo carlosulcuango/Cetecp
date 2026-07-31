@@ -94,10 +94,10 @@ export const THERAPISTS: Therapist[] = [
   },
   {
     id: "andriana-benitez",
-    name: "Lic. Andriana Benítez",
+    name: "Psic. Andriana Benítez",
     title: "PSICÓLOGA INFANTIL & PSICOREHABILITADORA",
     whatsappUrl:
-      "https://wa.me/593981827618?text=Hola,%20deseo%20solicitar%20una%20consulta%20con%20la%20Lic.%20Andriana%20Ben%C3%ADtez%20en%20CETECP",
+      "https://wa.me/593981827618?text=Hola,%20deseo%20solicitar%20una%20consulta%20con%20la%20Psic.%20Andriana%20Ben%C3%ADtez%20en%20CETECP",
     bio: "Especialista en conducta y desarrollo emocional infantil. Acompaña a los niños en el fortalecimiento de sus habilidades socioemocionales, regulación afectiva y adaptación escolar exitosa.",
     specialties: [
       "Conducta Infantil",
@@ -113,10 +113,10 @@ export const THERAPISTS: Therapist[] = [
   },
   {
     id: "daniela-palacios",
-    name: "Lic. Daniela Palacios",
+    name: "Psic. Daniela Palacios",
     title: "PSICÓLOGA GENERAL",
     whatsappUrl:
-      "https://wa.me/593995366899?text=Hola,%20deseo%20solicitar%20una%20consulta%20con%20la%20Lic.%20Daniela%20Palacios%20en%20CETECP",
+      "https://wa.me/593995366899?text=Hola,%20deseo%20solicitar%20una%20consulta%20con%20la%20Psic.%20Daniela%20Palacios%20en%20CETECP",
     bio: "Especialista en procesos conductuales infanto-juveniles. Ofrece apoyo clínico integral a adolescentes y familias, promoviendo la comunicación asertiva, resolución de conflictos y bienestar emocional.",
     specialties: [
       "Apoyo Infanto-Juvenil",
@@ -132,12 +132,12 @@ export const THERAPISTS: Therapist[] = [
   },
   {
     id: "jazmin-parra",
-    name: "Lic. Jazmín Parra",
+    name: "Psic. Jazmín Parra",
     title: "PSICÓLOGA GENERAL",
     phone: "099 536 6899",
     phoneRaw: "593995366899",
     whatsappUrl:
-      "https://wa.me/593995366899?text=Hola%20Lic.%20Jazm%C3%ADn%20Parra,%20deseo%20solicitar%20informaci%C3%B3n%20sobre%20una%20consulta%20en%20CETECP",
+      "https://wa.me/593995366899?text=Hola%20Psic.%20Jazm%C3%ADn%20Parra,%20deseo%20solicitar%20informaci%C3%B3n%20sobre%20una%20consulta%20en%20CETECP",
     bio: "Especialista en psicoterapia individual y de pareja. Experta en el abordaje clínico y manejo adaptativo de la ansiedad, depresión, duelo y conflictos afectivos en el ciclo vital adulto.",
     specialties: [
       "Psicoterapia Individual",
@@ -153,12 +153,12 @@ export const THERAPISTS: Therapist[] = [
   },
   {
     id: "lizbeth-ulcuango",
-    name: "Lic. Lizbeth Ulcuango",
+    name: "Psic. Lizbeth Ulcuango",
     title: "PSICÓLOGA EDUCATIVA",
     phone: "098 182 7618",
     phoneRaw: "593981827618",
     whatsappUrl:
-      "https://wa.me/593981827618?text=Hola%20Lic.%20Lizbeth%20Ulcuango,%20deseo%20solicitar%20informaci%C3%B3n%20sobre%20una%20consulta%20en%20CETECP",
+      "https://wa.me/593981827618?text=Hola%20Psic.%20Lizbeth%20Ulcuango,%20deseo%20solicitar%20informaci%C3%B3n%20sobre%20una%20consulta%20en%20CETECP",
     bio: "Especialista en Trastornos del Aprendizaje y Dificultades Psicopedagógicas. Diseña estrategias integrales para la dislexia, TDAH, lectoescritura y razonamiento cognitivo, impulsando la autoestima académica de los niños.",
     specialties: [
       "Trastornos del Aprendizaje",
@@ -167,8 +167,13 @@ export const THERAPISTS: Therapist[] = [
       "Razonamiento Cognitivo",
     ],
     education: [
-      "Licenciada en Psicología Educativa",
-      "Especialista en Trastornos del Aprendizaje y Diagnóstico Psicopedagógico",
+      "Psicóloga Educativa - Pontificia Universidad Católica del Ecuador (PUCE)",
+      "Diplomado en Evaluación e Intervención Psicopedagógica con Enfoque Multidisciplinario",
+      "Diplomado en Evaluación e Intervención del Espectro Autista",
+      "Diplomado Internacional en Terapia ABA",
+      "Certificación en Psicoterapia Infantil: Evaluación clínica, vínculo terapéutico y estrategias de intervención en casos complejos",
+      "Certificación en Arteterapia: Técnicas terapéuticas y lúdicas para la intervención psicológica y psicopedagógica",
+      "Certificación en Neuropsicología del Autismo y TDAH: Técnicas y herramientas de evaluación e intervención multidisciplinaria",
     ],
     image: "/images/lizbeth.jpeg",
   },
