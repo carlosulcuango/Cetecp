@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { CETECP_INFO, THERAPISTS, SERVICE_CATEGORIES, ServiceCategory, Therapist } from '../data/cetecpData';
 import { ReviewModal } from '../components/ReviewModal';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 const LinkedinIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -66,6 +67,42 @@ export const Home: React.FC<HomeProps> = ({
   const activeCategoryData: ServiceCategory = 
     SERVICE_CATEGORIES.find(cat => cat.id === activeCategoryTab) || SERVICE_CATEGORIES[0];
 
+  const fetchReviews = async () => {
+    if (!isSupabaseConfigured) return;
+    try {
+      const { data, error } = await supabase
+        .from('reseñas')
+        .select('*')
+        .eq('aprobado', true)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error cargando reseñas desde Supabase:', error);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        const mapped: PatientReview[] = data.map((r: any) => ({
+          id: r.id ? String(r.id) : `rev-${Date.now()}-${Math.random()}`,
+          author: r.nombre || r.author || 'Paciente Anónimo',
+          role: r.servicio || r.role || 'Atención General CETECP',
+          rating: Number(r.calificacion || r.rating || 5),
+          text: r.comentario || r.text || '',
+          date: r.created_at
+            ? new Date(r.created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })
+            : 'Reciente',
+        }));
+        setReviews(mapped);
+      }
+    } catch (err) {
+      console.error('Error al realizar la petición a Supabase:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
   useEffect(() => {
     if (selectedServiceId) {
       const timer = setTimeout(() => {
@@ -89,8 +126,11 @@ export const Home: React.FC<HomeProps> = ({
   };
 
   const handleAddReview = (newReview: PatientReview) => {
-    setReviews([newReview, ...reviews]);
+    setReviews((prev) => [newReview, ...prev]);
     setCurrentReviewIndex(0);
+    setTimeout(() => {
+      fetchReviews();
+    }, 800);
   };
 
   // Dynamic Math Calculations for Reviews

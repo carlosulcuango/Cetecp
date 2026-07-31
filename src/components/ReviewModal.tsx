@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, Star, MessageSquarePlus, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { X, Star, MessageSquarePlus, ShieldCheck, CheckCircle2, Loader2 } from 'lucide-react';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 interface ReviewModalProps {
   isOpen: boolean;
@@ -20,24 +21,51 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onAdd
   const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
   const [text, setText] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!text.trim()) return;
+    if (!text.trim() || isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    const authorName = author.trim() || 'Paciente Anónimo';
+    const serviceRole = role || 'Atención General CETECP';
+    const reviewText = text.trim();
+
+    if (isSupabaseConfigured) {
+      try {
+        const { error } = await supabase.from('reseñas').insert([
+          {
+            nombre: authorName,
+            servicio: serviceRole,
+            comentario: reviewText,
+            calificacion: rating,
+            aprobado: true
+          }
+        ]);
+        if (error) {
+          console.error('Error insertando reseña en Supabase:', error);
+        }
+      } catch (err) {
+        console.error('Error al conectar con Supabase:', err);
+      }
+    }
 
     const newReview = {
       id: `rev-${Date.now()}`,
-      author: author.trim() || 'Paciente Anónimo',
-      role: role || 'Atención General CETECP',
+      author: authorName,
+      role: serviceRole,
       rating,
-      text: text.trim(),
+      text: reviewText,
       date: 'Hace un momento',
     };
 
     onAddReview(newReview);
+    setIsSubmitting(false);
     setIsSuccess(true);
 
     setTimeout(() => {
@@ -187,9 +215,17 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onAdd
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 bg-sage-600 hover:bg-sage-700 text-white text-xs font-semibold rounded-xl shadow-md transition-colors"
+                  disabled={isSubmitting}
+                  className="px-6 py-2.5 bg-sage-600 hover:bg-sage-700 disabled:opacity-50 text-white text-xs font-semibold rounded-xl shadow-md transition-colors inline-flex items-center gap-2"
                 >
-                  Publicar Reseña
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Guardando...</span>
+                    </>
+                  ) : (
+                    <span>Publicar Reseña</span>
+                  )}
                 </button>
               </div>
 
