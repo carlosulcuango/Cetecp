@@ -47,6 +47,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
     setServicesDropdownOpen(false);
@@ -263,8 +274,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-sage-100 shadow-xl animate-in slide-in-from-top duration-200">
-          <div className="px-4 pt-3 pb-6 space-y-2">
+        <div className="md:hidden bg-white border-b border-sage-100 shadow-xl animate-in slide-in-from-top duration-200 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain">
+          <div className="px-4 pt-3 pb-8 space-y-2">
             <button
               type="button"
               onClick={() => handleNavClick('#inicio')}
