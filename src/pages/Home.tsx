@@ -535,8 +535,8 @@ export const Home: React.FC<HomeProps> = ({
 
 
       {/* ================= CATÁLOGO COMPLETO DE SERVICIOS ================= */}
-      <section id="servicios" className="w-full bg-warmCream/20 py-16 lg:py-24 border-b border-sage-100 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <section id="servicios" className="w-full bg-warmCream/20 py-16 lg:py-24 border-b border-sage-100 px-4 sm:px-6 lg:px-8 h-auto overflow-visible">
+        <div className="max-w-7xl mx-auto h-auto overflow-visible">
           
           <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
             <span className="text-xs font-extrabold text-sage-600 uppercase tracking-widest bg-sage-50 px-3 py-1 rounded-full border border-sage-200">
@@ -551,7 +551,7 @@ export const Home: React.FC<HomeProps> = ({
           </div>
 
           {/* Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-10 overscroll-contain">
             {SERVICE_CATEGORIES.map((category) => {
               const isActive = category.id === activeCategoryTab;
               return (
@@ -572,7 +572,7 @@ export const Home: React.FC<HomeProps> = ({
           </div>
 
           {/* Active Category Display */}
-          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-sage-200/80 shadow-xl space-y-8 animate-in fade-in duration-300">
+          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-sage-200/80 shadow-xl space-y-8 animate-in fade-in duration-300 h-auto overflow-visible">
             
             <div className="border-b border-sage-100 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
@@ -589,7 +589,7 @@ export const Home: React.FC<HomeProps> = ({
               </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto overflow-visible">
               {activeCategoryData.services.map((service) => {
                 const isHighlighted = selectedServiceId === service.id;
                 return (
@@ -597,7 +597,7 @@ export const Home: React.FC<HomeProps> = ({
                     key={service.id}
                     id={service.id}
                     to={`/servicios/${service.id}`}
-                    className={`p-5 sm:p-6 rounded-2xl border flex flex-col justify-between hover:-translate-y-1 hover:shadow-md transition-all duration-200 cursor-pointer group ${
+                    className={`p-5 sm:p-6 rounded-2xl border flex flex-col justify-between hover:-translate-y-1 hover:shadow-md transition-all duration-200 cursor-pointer group h-auto overflow-visible ${
                       isHighlighted
                         ? 'bg-sage-50/90 border-sage-500 ring-2 ring-sage-400 shadow-lg scale-[1.01]'
                         : 'bg-warmCream/30 border-sage-100 hover:border-sage-300'
@@ -912,9 +912,9 @@ export const Home: React.FC<HomeProps> = ({
                       <span className="text-xs font-bold text-slateCustom-900 group-hover:text-emerald-700 truncate">
                         {t.name}
                       </span>
-                      <span className="text-[11px] text-emerald-600 font-mono font-semibold flex items-center gap-1 mt-1">
+                      <span className="text-[11px] text-emerald-600 font-mono font-semibold flex items-center gap-1 mt-1 whitespace-nowrap">
                         <MessageCircle className="w-3.5 h-3.5 shrink-0" />
-                        {t.phone || '098 182 7618'}
+                        <span className="whitespace-nowrap">{t.phone || '098 182 7618'}</span>
                       </span>
                     </a>
                   ))}

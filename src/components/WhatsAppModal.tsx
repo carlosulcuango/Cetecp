@@ -89,22 +89,22 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({ isOpen, onClose })
                     ))}
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
-                    <span className="text-xs font-mono text-slateCustom-800 flex items-center gap-1.5 font-medium">
-                      <Phone className="w-3.5 h-3.5 text-sage-600" />
-                      {therapist.phone || '098 182 7618'}
-                    </span>
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-4 pt-3 border-t border-slate-100">
+                    <div className="inline-flex items-center gap-2 whitespace-nowrap text-xs font-mono text-slateCustom-800 font-medium">
+                      <Phone className="w-3.5 h-3.5 shrink-0 text-sage-600" />
+                      <span className="whitespace-nowrap tracking-wide">{therapist.phone || '098 182 7618'}</span>
+                    </div>
 
                     <a
                       href={therapist.whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Contactar a ${therapist.name} por WhatsApp`}
-                      className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-sm transition-all group-hover:scale-[1.02]"
+                      className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-xl shadow-sm transition-all group-hover:scale-[1.02]"
                     >
-                      <MessageCircle className="w-4 h-4" />
-                      <span>Contactar por WhatsApp</span>
-                      <ArrowRight className="w-3.5 h-3.5 opacity-80" />
+                      <MessageCircle className="w-4 h-4 shrink-0" />
+                      <span className="whitespace-nowrap">Contactar por WhatsApp</span>
+                      <ArrowRight className="w-3.5 h-3.5 shrink-0 opacity-80" />
                     </a>
                   </div>
                 </div>
