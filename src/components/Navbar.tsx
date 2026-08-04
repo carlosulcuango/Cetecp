@@ -123,8 +123,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
               className="flex items-center group focus:outline-none"
             >
               <img
-                src="/images/logo.png"
+                src="/images/logo.webp"
                 alt={CETECP_INFO.fullName}
+                loading="eager"
                 fetchPriority="high"
                 decoding="async"
                 className="h-12 md:h-14 w-auto max-w-[220px] object-contain"

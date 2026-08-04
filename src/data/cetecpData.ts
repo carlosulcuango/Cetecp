@@ -61,7 +61,7 @@ export const CETECP_INFO: CetecpInfo = {
   iframeSrc:
     "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3989.81648083811!2d-78.445959!3d-0.0121589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMDAnNDMuOCJTIDc4wrAyNic0NS41Ilc!5e0!3m2!1ses!2sec!4v1710000000000!5m2!1ses!2sec",
   schedule: "Lunes a Sábado: 08:00 - 18:00",
-  logoUrl: "/images/logo.png",
+  logoUrl: "/images/logo.webp",
   facebookUrl: "https://www.facebook.com/share/1AbPLvRGt6/",
   instagramUrl: "https://www.instagram.com/psicetecp?igsh=bWJ2cjZyenhhdWR1",
 };
@@ -90,7 +90,7 @@ export const THERAPISTS: Therapist[] = [
       "Acreditación para uso clínico de ADOS-2 (Hogrefe TEA Ediciones, Madrid)",
       "Detección temprana de Autismo y Escala Bayley-III (Pearson Clinical)",
     ],
-    image: "/images/alejandra.jpeg",
+    image: "/images/alejandra.webp",
   },
   {
     id: "andriana-benitez",
@@ -109,7 +109,7 @@ export const THERAPISTS: Therapist[] = [
       "Licenciada en Psicología Infantil y Psicorehabilitación",
       "Especialista en desarrollo infanto-juvenil y regulación afectiva",
     ],
-    image: "/images/andriana.jpeg",
+    image: "/images/andriana.webp",
   },
   {
     id: "daniela-palacios",
@@ -128,7 +128,7 @@ export const THERAPISTS: Therapist[] = [
       "Licenciada en Psicología General",
       "Especialista en apoyo clínico conductual infanto-juvenil y familiar",
     ],
-    image: "/images/daniela.jpeg",
+    image: "/images/daniela.webp",
   },
   {
     id: "jazmin-parra",
@@ -149,7 +149,7 @@ export const THERAPISTS: Therapist[] = [
       "Licenciada en Psicología General",
       "Especialista en Psicoterapia Individual, Pareja y Trastornos del Estado de Ánimo",
     ],
-    image: "/images/jazmin.jpeg",
+    image: "/images/jazmin.webp",
   },
   {
     id: "lizbeth-ulcuango",
@@ -175,7 +175,7 @@ export const THERAPISTS: Therapist[] = [
       "Certificación en Arteterapia: Técnicas terapéuticas y lúdicas para la intervención psicológica y psicopedagógica",
       "Certificación en Neuropsicología del Autismo y TDAH: Técnicas y herramientas de evaluación e intervención multidisciplinaria",
     ],
-    image: "/images/lizbeth.jpeg",
+    image: "/images/lizbeth.webp",
   },
 ];
 

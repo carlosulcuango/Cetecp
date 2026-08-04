@@ -26,8 +26,10 @@ export const Footer: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <img
-                src="/images/logo.png"
+                src="/images/logo.webp"
                 alt="Logo de CETECP"
+                loading="lazy"
+                decoding="async"
                 className="h-10 w-auto object-contain"
               />
               <div className="flex flex-col">

@@ -61,50 +61,50 @@ export const AppContent: React.FC = () => {
         onOpenWhatsAppModal={handleOpenWhatsAppModal}
       />
 
-      {/* Router View con Carga Asíncrona Suspense */}
-      <Suspense fallback={<PageFallback />}>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                onOpenWhatsAppModal={handleOpenWhatsAppModal}
-                activeCategoryTab={activeCategoryTab}
-                onCategoryTabChange={(catId) => {
-                  setActiveCategoryTab(catId);
-                  setSelectedServiceId(null);
-                }}
-                selectedServiceId={selectedServiceId}
-              />
-            }
-          />
+      {/* Router View - Home loads synchronously for instant FCP/LCP */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              onOpenWhatsAppModal={handleOpenWhatsAppModal}
+              activeCategoryTab={activeCategoryTab}
+              onCategoryTabChange={(catId) => {
+                setActiveCategoryTab(catId);
+                setSelectedServiceId(null);
+              }}
+              selectedServiceId={selectedServiceId}
+            />
+          }
+        />
 
-          <Route
-            path="/servicios/:serviceId"
-            element={
+        <Route
+          path="/servicios/:serviceId"
+          element={
+            <Suspense fallback={<PageFallback />}>
               <ServiceDetail
                 onOpenWhatsAppModal={handleOpenWhatsAppModal}
               />
-            }
-          />
+            </Suspense>
+          }
+        />
 
-          {/* Fallback route */}
-          <Route
-            path="*"
-            element={
-              <Home
-                onOpenWhatsAppModal={handleOpenWhatsAppModal}
-                activeCategoryTab={activeCategoryTab}
-                onCategoryTabChange={(catId) => {
-                  setActiveCategoryTab(catId);
-                  setSelectedServiceId(null);
-                }}
-                selectedServiceId={selectedServiceId}
-              />
-            }
-          />
-        </Routes>
-      </Suspense>
+        {/* Fallback route */}
+        <Route
+          path="*"
+          element={
+            <Home
+              onOpenWhatsAppModal={handleOpenWhatsAppModal}
+              activeCategoryTab={activeCategoryTab}
+              onCategoryTabChange={(catId) => {
+                setActiveCategoryTab(catId);
+                setSelectedServiceId(null);
+              }}
+              selectedServiceId={selectedServiceId}
+            />
+          }
+        />
+      </Routes>
 
       {/* Footer */}
       <Footer />
