@@ -60,6 +60,7 @@ export const Home: React.FC<HomeProps> = ({
   selectedServiceId
 }) => {
   const [reviews, setReviews] = useState<PatientReview[]>(INITIAL_REVIEWS);
+  const [isLoadingReviews, setIsLoadingReviews] = useState<boolean>(isSupabaseConfigured);
   const [currentReviewIndex, setCurrentReviewIndex] = useState<number>(0);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState<boolean>(false);
   const [selectedTherapist, setSelectedTherapist] = useState<Therapist | null>(null);
@@ -68,7 +69,10 @@ export const Home: React.FC<HomeProps> = ({
     SERVICE_CATEGORIES.find(cat => cat.id === activeCategoryTab) || SERVICE_CATEGORIES[0];
 
   const fetchReviews = async () => {
-    if (!isSupabaseConfigured) return;
+    if (!isSupabaseConfigured) {
+      setIsLoadingReviews(false);
+      return;
+    }
     try {
       const { data, error } = await supabase
         .from('reseñas')
@@ -78,10 +82,7 @@ export const Home: React.FC<HomeProps> = ({
 
       if (error) {
         console.error('Error cargando reseñas desde Supabase:', error);
-        return;
-      }
-
-      if (data && data.length > 0) {
+      } else if (data && data.length > 0) {
         const mapped: PatientReview[] = data.map((r: any) => ({
           id: r.id ? String(r.id) : `rev-${Date.now()}-${Math.random()}`,
           author: r.nombre || r.author || 'Paciente Anónimo',
@@ -96,11 +97,26 @@ export const Home: React.FC<HomeProps> = ({
       }
     } catch (err) {
       console.error('Error al realizar la petición a Supabase:', err);
+    } finally {
+      setIsLoadingReviews(false);
     }
   };
 
   useEffect(() => {
-    fetchReviews();
+    // Difiere la petición de red para permitir el renderizado crítico inmediato (FCP/LCP)
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      const idleId = (window as any).requestIdleCallback(() => {
+        fetchReviews();
+      });
+      return () => {
+        if ('cancelIdleCallback' in window) {
+          (window as any).cancelIdleCallback(idleId);
+        }
+      };
+    } else {
+      const timer = setTimeout(fetchReviews, 50);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   useEffect(() => {
@@ -272,8 +288,30 @@ export const Home: React.FC<HomeProps> = ({
                 </div>
               </div>
 
-              {/* Review Card or Empty State */}
-              {totalReviews === 0 || !currentReview ? (
+              {/* Review Card, Loading Skeleton or Empty State */}
+              {isLoadingReviews ? (
+                <div className="min-h-[210px] flex flex-col justify-between space-y-4 bg-warmCream/30 p-5 sm:p-6 rounded-2xl border border-sage-100 animate-pulse">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-1">
+                      {[1, 2, 3, 4, 5].map((n) => (
+                        <div key={n} className="w-4 h-4 rounded bg-amber-200/60" />
+                      ))}
+                    </div>
+                    <div className="h-3.5 bg-sage-200/70 rounded-md w-11/12 mt-2"></div>
+                    <div className="h-3.5 bg-sage-200/70 rounded-md w-4/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between pt-3 border-t border-sage-100/70">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-full bg-sage-300/60"></div>
+                      <div className="space-y-1">
+                        <div className="h-3 bg-sage-200/80 rounded w-24"></div>
+                        <div className="h-2 bg-sage-200/60 rounded w-16"></div>
+                      </div>
+                    </div>
+                    <div className="h-2 bg-sage-200/60 rounded w-14"></div>
+                  </div>
+                </div>
+              ) : totalReviews === 0 || !currentReview ? (
                 <div className="min-h-[210px] flex flex-col items-center justify-center text-center p-6 bg-warmCream/30 rounded-2xl border border-dashed border-sage-300 space-y-3.5 animate-in fade-in duration-300">
                   <div className="w-12 h-12 rounded-2xl bg-sage-100 text-sage-600 flex items-center justify-center shadow-inner border border-sage-200">
                     <MessageSquarePlus className="w-6 h-6" />

@@ -125,6 +125,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
               <img
                 src="/images/logo.png"
                 alt={CETECP_INFO.fullName}
+                fetchPriority="high"
+                decoding="async"
                 className="h-12 md:h-14 w-auto max-w-[220px] object-contain"
               />
             </Link>

@@ -1,11 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
-import { WhatsAppModal } from './components/WhatsAppModal';
 import { Home } from './pages/Home';
-import { ServiceDetail } from './pages/ServiceDetail';
 import { SERVICE_CATEGORIES } from './data/cetecpData';
+
+// Code Splitting / Lazy Loading de vistas no críticas para el renderizado inicial
+const ServiceDetail = lazy(() =>
+  import('./pages/ServiceDetail').then((module) => ({ default: module.ServiceDetail }))
+);
+const WhatsAppModal = lazy(() =>
+  import('./components/WhatsAppModal').then((module) => ({ default: module.WhatsAppModal }))
+);
+
+const PageFallback: React.FC = () => (
+  <div className="min-h-screen w-full flex items-center justify-center bg-warmCream/30">
+    <div className="w-8 h-8 border-4 border-sage-600 border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -49,57 +61,63 @@ export const AppContent: React.FC = () => {
         onOpenWhatsAppModal={handleOpenWhatsAppModal}
       />
 
-      {/* Router View */}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              onOpenWhatsAppModal={handleOpenWhatsAppModal}
-              activeCategoryTab={activeCategoryTab}
-              onCategoryTabChange={(catId) => {
-                setActiveCategoryTab(catId);
-                setSelectedServiceId(null);
-              }}
-              selectedServiceId={selectedServiceId}
-            />
-          }
-        />
+      {/* Router View con Carga Asíncrona Suspense */}
+      <Suspense fallback={<PageFallback />}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                onOpenWhatsAppModal={handleOpenWhatsAppModal}
+                activeCategoryTab={activeCategoryTab}
+                onCategoryTabChange={(catId) => {
+                  setActiveCategoryTab(catId);
+                  setSelectedServiceId(null);
+                }}
+                selectedServiceId={selectedServiceId}
+              />
+            }
+          />
 
-        <Route
-          path="/servicios/:serviceId"
-          element={
-            <ServiceDetail
-              onOpenWhatsAppModal={handleOpenWhatsAppModal}
-            />
-          }
-        />
+          <Route
+            path="/servicios/:serviceId"
+            element={
+              <ServiceDetail
+                onOpenWhatsAppModal={handleOpenWhatsAppModal}
+              />
+            }
+          />
 
-        {/* Fallback route */}
-        <Route
-          path="*"
-          element={
-            <Home
-              onOpenWhatsAppModal={handleOpenWhatsAppModal}
-              activeCategoryTab={activeCategoryTab}
-              onCategoryTabChange={(catId) => {
-                setActiveCategoryTab(catId);
-                setSelectedServiceId(null);
-              }}
-              selectedServiceId={selectedServiceId}
-            />
-          }
-        />
-      </Routes>
+          {/* Fallback route */}
+          <Route
+            path="*"
+            element={
+              <Home
+                onOpenWhatsAppModal={handleOpenWhatsAppModal}
+                activeCategoryTab={activeCategoryTab}
+                onCategoryTabChange={(catId) => {
+                  setActiveCategoryTab(catId);
+                  setSelectedServiceId(null);
+                }}
+                selectedServiceId={selectedServiceId}
+              />
+            }
+          />
+        </Routes>
+      </Suspense>
 
       {/* Footer */}
       <Footer />
 
-      {/* Direct WhatsApp Therapist Selection Modal */}
-      <WhatsAppModal
-        isOpen={isWhatsAppModalOpen}
-        onClose={handleCloseWhatsAppModal}
-      />
+      {/* Direct WhatsApp Therapist Selection Modal (Lazy) */}
+      <Suspense fallback={null}>
+        {isWhatsAppModalOpen && (
+          <WhatsAppModal
+            isOpen={isWhatsAppModalOpen}
+            onClose={handleCloseWhatsAppModal}
+          />
+        )}
+      </Suspense>
     </div>
   );
 };
