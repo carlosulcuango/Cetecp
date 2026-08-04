@@ -263,7 +263,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-full bottom-0 overflow-y-auto max-h-[calc(100vh-80px)] bg-white border-b border-sage-100 shadow-xl animate-in slide-in-from-top duration-200">
+        <div className="md:hidden bg-white border-b border-sage-100 shadow-xl animate-in slide-in-from-top duration-200">
           <div className="px-4 pt-3 pb-6 space-y-2">
             <button
               type="button"
@@ -289,7 +289,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
               </button>
 
               {mobileServicesOpen && (
-                <div className="pl-4 pr-2 py-2 space-y-4 bg-sage-50/50 rounded-xl my-1 border border-sage-100 h-auto">
+                <div className="pl-4 pr-2 pt-2 pb-8 space-y-4 bg-sage-50/50 rounded-xl my-1 border border-sage-100 h-auto">
                   {SERVICE_CATEGORIES.map((cat) => (
                     <div key={cat.id} className="space-y-1">
                       <button
