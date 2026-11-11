@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   MapPin, 
   Mail, 
@@ -10,10 +11,15 @@ import {
 import { CETECP_INFO, THERAPISTS } from '../data/cetecpData';
 
 export const Footer: React.FC = () => {
+  const navigate = useNavigate();
+
   const handleNavClick = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // La sección solo existe en la portada: navegar allí con el hash
+      navigate({ pathname: '/', hash: href });
     }
   };
 
@@ -174,10 +180,8 @@ export const Footer: React.FC = () => {
                 <a
                   href="/#equipo"
                   onClick={(e) => {
-                    if (window.location.pathname === '/') {
-                      e.preventDefault();
-                      handleNavClick('#equipo');
-                    }
+                    e.preventDefault();
+                    handleNavClick('#equipo');
                   }}
                   className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors mt-2"
                 >

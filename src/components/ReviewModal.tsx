@@ -5,17 +5,11 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 interface ReviewModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAddReview: (review: {
-    id: string;
-    author: string;
-    role: string;
-    rating: number;
-    text: string;
-    date: string;
-  }) => void;
+  onSubmitted?: () => void;
 }
 
-export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onAddReview }) => {
+export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSubmitted }) => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [author, setAuthor] = useState('');
   const [role, setRole] = useState('Terapia Individual');
   const [rating, setRating] = useState(5);
@@ -31,42 +25,48 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onAdd
     if (!text.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
+    setErrorMessage(null);
 
     const authorName = author.trim() || 'Paciente Anónimo';
     const serviceRole = role || 'Atención General CETECP';
     const reviewText = text.trim();
 
+    let saved = false;
     if (isSupabaseConfigured) {
       try {
+        // La aprobación la decide un trigger en la base (supabase/moderacion_resenas.sql):
+        // aprueba sola la reseña salvo que contenga insultos o enlaces.
+        // Se envía false para que, si el trigger no existe, nada se publique sin filtro.
         const { error } = await supabase.from('reseñas').insert([
           {
             nombre: authorName,
             servicio: serviceRole,
             comentario: reviewText,
             calificacion: rating,
-            aprobado: true
+            aprobado: false
           }
         ]);
         if (error) {
           console.error('Error insertando reseña en Supabase:', error);
+        } else {
+          saved = true;
         }
       } catch (err) {
         console.error('Error al conectar con Supabase:', err);
       }
     }
 
-    const newReview = {
-      id: `rev-${Date.now()}`,
-      author: authorName,
-      role: serviceRole,
-      rating,
-      text: reviewText,
-      date: 'Hace un momento',
-    };
-
-    onAddReview(newReview);
     setIsSubmitting(false);
+
+    if (!saved) {
+      setErrorMessage(
+        'No pudimos guardar tu reseña en este momento. Por favor, inténtalo de nuevo más tarde.'
+      );
+      return;
+    }
+
     setIsSuccess(true);
+    onSubmitted?.();
 
     setTimeout(() => {
       setIsSuccess(false);
@@ -74,7 +74,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onAdd
       setText('');
       setRating(5);
       onClose();
-    }, 1500);
+    }, 3000);
   };
 
   return (
@@ -116,7 +116,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onAdd
               </div>
               <h4 className="text-lg font-bold text-slateCustom-900">¡Muchas Gracias!</h4>
               <p className="text-xs text-slate-600 max-w-xs mx-auto">
-                Tu reseña ha sido registrada y publicada exitosamente en CETECP.
+                Recibimos tu reseña. Gracias por compartir tu experiencia en CETECP.
               </p>
             </div>
           ) : (
@@ -135,7 +135,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onAdd
                       onMouseEnter={() => setHoverRating(star)}
                       onMouseLeave={() => setHoverRating(0)}
                       onClick={() => setRating(star)}
-                      className="p-1 focus:outline-none transform hover:scale-115 transition-transform"
+                      className="p-1 focus:outline-none transform hover:scale-110 transition-transform"
                     >
                       <Star
                         className={`w-7 h-7 ${
@@ -157,6 +157,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onAdd
                 <input
                   id="review-author"
                   type="text"
+                  maxLength={80}
                   placeholder="Ej. María G. o Paciente Anónimo"
                   value={author}
                   onChange={(e) => setAuthor(e.target.value)}
@@ -192,6 +193,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onAdd
                   id="review-text"
                   rows={4}
                   required
+                  maxLength={1000}
                   placeholder="Escribe tu experiencia en CETECP (ej. Excelente atención, me sentí escuchado y apoyado...)"
                   value={text}
                   onChange={(e) => setText(e.target.value)}
@@ -203,6 +205,12 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onAdd
                 <ShieldCheck className="w-4 h-4 text-sage-600 shrink-0" />
                 <span>Tu información se trata con total confidencialidad.</span>
               </div>
+
+              {errorMessage && (
+                <div role="alert" className="p-3 bg-rose-50 rounded-xl border border-rose-200 text-xs text-rose-700 font-medium">
+                  {errorMessage}
+                </div>
+              )}
 
               {/* Actions */}
               <div className="pt-2 flex items-center justify-end gap-3">

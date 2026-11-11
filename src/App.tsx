@@ -20,10 +20,18 @@ const PageFallback: React.FC = () => (
 );
 
 const ScrollToTop: React.FC = () => {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
+    // Con hash (p. ej. /#servicios) se desplaza a la sección; sin hash, al inicio
+    if (hash) {
+      const element = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 };
 

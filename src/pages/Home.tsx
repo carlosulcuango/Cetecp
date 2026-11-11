@@ -44,6 +44,26 @@ export interface PatientReview {
   date: string;
 }
 
+interface ReviewRow {
+  id?: string | number;
+  nombre?: string;
+  author?: string;
+  servicio?: string;
+  role?: string;
+  calificacion?: number | string;
+  rating?: number | string;
+  comentario?: string;
+  text?: string;
+  created_at?: string;
+}
+
+// Garantiza un entero entre 1 y 5 aunque la base devuelva decimales, nulos o texto
+const normalizeRating = (value: unknown): number => {
+  const n = Math.round(Number(value));
+  if (!Number.isFinite(n)) return 5;
+  return Math.min(5, Math.max(1, n));
+};
+
 const INITIAL_REVIEWS: PatientReview[] = [];
 
 interface HomeProps {
@@ -83,11 +103,11 @@ export const Home: React.FC<HomeProps> = ({
       if (error) {
         console.error('Error cargando reseñas desde Supabase:', error);
       } else if (data && data.length > 0) {
-        const mapped: PatientReview[] = data.map((r: any) => ({
+        const mapped: PatientReview[] = (data as ReviewRow[]).map((r) => ({
           id: r.id ? String(r.id) : `rev-${Date.now()}-${Math.random()}`,
           author: r.nombre || r.author || 'Paciente Anónimo',
           role: r.servicio || r.role || 'Atención General CETECP',
-          rating: Number(r.calificacion || r.rating || 5),
+          rating: normalizeRating(r.calificacion ?? r.rating),
           text: r.comentario || r.text || '',
           date: r.created_at
             ? new Date(r.created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })
@@ -104,15 +124,11 @@ export const Home: React.FC<HomeProps> = ({
 
   useEffect(() => {
     // Difiere la petición de red para permitir el renderizado crítico inmediato (FCP/LCP)
-    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-      const idleId = (window as any).requestIdleCallback(() => {
+    if (typeof window.requestIdleCallback === 'function') {
+      const idleId = window.requestIdleCallback(() => {
         fetchReviews();
       });
-      return () => {
-        if ('cancelIdleCallback' in window) {
-          (window as any).cancelIdleCallback(idleId);
-        }
-      };
+      return () => window.cancelIdleCallback(idleId);
     } else {
       const timer = setTimeout(fetchReviews, 50);
       return () => clearTimeout(timer);
@@ -139,14 +155,6 @@ export const Home: React.FC<HomeProps> = ({
   const handleNextReview = () => {
     if (reviews.length === 0) return;
     setCurrentReviewIndex((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
-  };
-
-  const handleAddReview = (newReview: PatientReview) => {
-    setReviews((prev) => [newReview, ...prev]);
-    setCurrentReviewIndex(0);
-    setTimeout(() => {
-      fetchReviews();
-    }, 800);
   };
 
   // Dynamic Math Calculations for Reviews
@@ -236,7 +244,7 @@ export const Home: React.FC<HomeProps> = ({
           <div className="relative w-full">
             
             {/* Outer Decorative Glow */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-sage-400 to-emerald-500 rounded-3xl transform rotate-1 scale-102 opacity-20 blur-xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-sage-400 to-emerald-500 rounded-3xl transform rotate-1 scale-[1.02] opacity-20 blur-xl"></div>
 
             <div className="relative bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-sage-200/90 space-y-6">
               
@@ -1070,7 +1078,7 @@ export const Home: React.FC<HomeProps> = ({
                   <UserCheck className="w-4 h-4 text-sage-600" />
                   Sobre mí
                 </h4>
-                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed bg-white p-4 rounded-2xl border border-sage-100 shadow-xs">
+                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed bg-white p-4 rounded-2xl border border-sage-100 shadow-sm">
                   {selectedTherapist.bio}
                 </p>
               </div>
@@ -1133,7 +1141,11 @@ export const Home: React.FC<HomeProps> = ({
       <ReviewModal
         isOpen={isReviewModalOpen}
         onClose={() => setIsReviewModalOpen(false)}
-        onAddReview={handleAddReview}
+        onSubmitted={() => {
+          // Si la reseña fue aprobada automáticamente, aparece al recargar la lista
+          setCurrentReviewIndex(0);
+          fetchReviews();
+        }}
       />
 
     </main>
