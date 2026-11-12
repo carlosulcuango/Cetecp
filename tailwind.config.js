@@ -8,6 +8,11 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        // Sin esto, la clase font-sans usa la fuente del sistema y la
+        // tipografía cargada desde Google Fonts nunca se aplica
+        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+      },
       colors: {
         sage: {
           50: '#f4f7f4',

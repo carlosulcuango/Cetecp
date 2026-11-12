@@ -27,7 +27,9 @@ import {
 } from 'lucide-react';
 import { CETECP_INFO, THERAPISTS, SERVICE_CATEGORIES, ServiceCategory, Therapist } from '../data/cetecpData';
 import { ReviewModal } from '../components/ReviewModal';
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { fetchApprovedReviews, isReviewsBackendConfigured } from '../lib/reviews';
+import { useModalBehavior } from '../lib/useModalBehavior';
+import { usePageMeta } from '../lib/usePageMeta';
 
 const LinkedinIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -42,19 +44,6 @@ export interface PatientReview {
   rating: number;
   text: string;
   date: string;
-}
-
-interface ReviewRow {
-  id?: string | number;
-  nombre?: string;
-  author?: string;
-  servicio?: string;
-  role?: string;
-  calificacion?: number | string;
-  rating?: number | string;
-  comentario?: string;
-  text?: string;
-  created_at?: string;
 }
 
 // Garantiza un entero entre 1 y 5 aunque la base devuelva decimales, nulos o texto
@@ -80,43 +69,39 @@ export const Home: React.FC<HomeProps> = ({
   selectedServiceId
 }) => {
   const [reviews, setReviews] = useState<PatientReview[]>(INITIAL_REVIEWS);
-  const [isLoadingReviews, setIsLoadingReviews] = useState<boolean>(isSupabaseConfigured);
+  const [isLoadingReviews, setIsLoadingReviews] = useState<boolean>(isReviewsBackendConfigured);
   const [currentReviewIndex, setCurrentReviewIndex] = useState<number>(0);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState<boolean>(false);
   const [selectedTherapist, setSelectedTherapist] = useState<Therapist | null>(null);
+
+  usePageMeta({ path: '/' });
+  useModalBehavior(Boolean(selectedTherapist), () => setSelectedTherapist(null));
 
   const activeCategoryData: ServiceCategory = 
     SERVICE_CATEGORIES.find(cat => cat.id === activeCategoryTab) || SERVICE_CATEGORIES[0];
 
   const fetchReviews = async () => {
-    if (!isSupabaseConfigured) {
+    if (!isReviewsBackendConfigured) {
       setIsLoadingReviews(false);
       return;
     }
     try {
-      const { data, error } = await supabase
-        .from('reseñas')
-        .select('*')
-        .eq('aprobado', true)
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        console.error('Error cargando reseñas desde Supabase:', error);
-      } else if (data && data.length > 0) {
-        const mapped: PatientReview[] = (data as ReviewRow[]).map((r) => ({
+      const data = await fetchApprovedReviews();
+      if (data.length > 0) {
+        const mapped: PatientReview[] = data.map((r) => ({
           id: r.id ? String(r.id) : `rev-${Date.now()}-${Math.random()}`,
-          author: r.nombre || r.author || 'Paciente Anónimo',
-          role: r.servicio || r.role || 'Atención General CETECP',
-          rating: normalizeRating(r.calificacion ?? r.rating),
-          text: r.comentario || r.text || '',
+          author: r.nombre || 'Paciente Anónimo',
+          role: r.servicio || 'Atención General CETECP',
+          rating: normalizeRating(r.calificacion),
+          text: r.comentario || '',
           date: r.created_at
-            ? new Date(r.created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })
+            ? new Date(r.created_at).toLocaleDateString('es-EC', { day: 'numeric', month: 'short', year: 'numeric' })
             : 'Reciente',
         }));
         setReviews(mapped);
       }
     } catch (err) {
-      console.error('Error al realizar la petición a Supabase:', err);
+      console.error('Error cargando reseñas:', err);
     } finally {
       setIsLoadingReviews(false);
     }
@@ -797,6 +782,8 @@ export const Home: React.FC<HomeProps> = ({
                   <img
                     src={therapist.image}
                     alt={therapist.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-40 h-40 sm:w-44 sm:h-44 rounded-full border-4 border-emerald-600/20 object-cover mx-auto mb-4 shadow-md group-hover:scale-105 transition-transform duration-200"
                   />
                   <h3 className="font-bold text-base sm:text-lg text-slateCustom-900 mb-1 leading-snug">
@@ -995,6 +982,9 @@ export const Home: React.FC<HomeProps> = ({
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slateCustom-900/60 backdrop-blur-sm animate-in fade-in duration-200"
           onClick={() => setSelectedTherapist(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Perfil profesional de ${selectedTherapist.name}`}
         >
           <div 
             className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-sage-100 overflow-hidden transform animate-in zoom-in-95 duration-200 max-h-[90vh] flex flex-col"

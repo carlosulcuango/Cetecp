@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
+import { NotFound } from './pages/NotFound';
 import { SERVICE_CATEGORIES } from './data/cetecpData';
 
 // Code Splitting / Lazy Loading de vistas no críticas para el renderizado inicial
@@ -98,21 +99,8 @@ export const AppContent: React.FC = () => {
           }
         />
 
-        {/* Fallback route */}
-        <Route
-          path="*"
-          element={
-            <Home
-              onOpenWhatsAppModal={handleOpenWhatsAppModal}
-              activeCategoryTab={activeCategoryTab}
-              onCategoryTabChange={(catId) => {
-                setActiveCategoryTab(catId);
-                setSelectedServiceId(null);
-              }}
-              selectedServiceId={selectedServiceId}
-            />
-          }
-        />
+        {/* Cualquier otra ruta: página 404 */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       {/* Footer */}

@@ -125,6 +125,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
               <img
                 src="/images/logo.webp"
                 alt={CETECP_INFO.fullName}
+                width={600}
+                height={260}
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -148,12 +150,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
               className="relative"
               onMouseEnter={() => setServicesDropdownOpen(true)}
               onMouseLeave={() => setServicesDropdownOpen(false)}
+              onFocus={() => setServicesDropdownOpen(true)}
+              onBlur={(e) => {
+                // Cierra solo cuando el foco sale del bloque completo (navegación con teclado)
+                if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                  setServicesDropdownOpen(false);
+                }
+              }}
             >
               <button
                 type="button"
                 onClick={() => handleNavClick('#servicios')}
                 className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 transition-colors whitespace-nowrap"
                 aria-expanded={servicesDropdownOpen}
+                aria-haspopup="true"
               >
                 <span>Servicios</span>
                 <ChevronDown
@@ -263,7 +273,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-slateCustom-800 hover:text-sage-600 rounded-lg hover:bg-sage-50 focus:outline-none"
-              aria-label="Abrir menú"
+              aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? (
                 <X className="w-6 h-6" />

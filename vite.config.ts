@@ -9,14 +9,12 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
-              return 'vendor-react';
-            }
+            // lucide-react va primero: su nombre también contiene "react"
             if (id.includes('lucide-react')) {
               return 'vendor-lucide';
             }
-            if (id.includes('@supabase')) {
-              return 'vendor-supabase';
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'vendor-react';
             }
             return 'vendor-core';
           }

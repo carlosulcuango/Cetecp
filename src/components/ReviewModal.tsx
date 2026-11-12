@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Star, MessageSquarePlus, ShieldCheck, CheckCircle2, Loader2 } from 'lucide-react';
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { insertReview, isReviewsBackendConfigured } from '../lib/reviews';
+import { useModalBehavior } from '../lib/useModalBehavior';
 
 interface ReviewModalProps {
   isOpen: boolean;
@@ -18,6 +19,8 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSub
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  useModalBehavior(isOpen, onClose);
+
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,27 +35,17 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSub
     const reviewText = text.trim();
 
     let saved = false;
-    if (isSupabaseConfigured) {
+    if (isReviewsBackendConfigured) {
       try {
-        // La aprobación la decide un trigger en la base (supabase/moderacion_resenas.sql):
-        // aprueba sola la reseña salvo que contenga insultos o enlaces.
-        // Se envía false para que, si el trigger no existe, nada se publique sin filtro.
-        const { error } = await supabase.from('reseñas').insert([
-          {
-            nombre: authorName,
-            servicio: serviceRole,
-            comentario: reviewText,
-            calificacion: rating,
-            aprobado: false
-          }
-        ]);
-        if (error) {
-          console.error('Error insertando reseña en Supabase:', error);
-        } else {
-          saved = true;
-        }
+        await insertReview({
+          nombre: authorName,
+          servicio: serviceRole,
+          comentario: reviewText,
+          calificacion: rating,
+        });
+        saved = true;
       } catch (err) {
-        console.error('Error al conectar con Supabase:', err);
+        console.error('Error guardando la reseña:', err);
       }
     }
 
@@ -78,10 +71,16 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({ isOpen, onClose, onSub
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slateCustom-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slateCustom-900/60 backdrop-blur-sm animate-in fade-in duration-200"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Dejar una reseña"
+    >
       
       <div 
-        className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-sage-100 overflow-hidden transform animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-lg max-h-[92dvh] overflow-y-auto bg-white rounded-3xl shadow-2xl border border-sage-100 transform animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

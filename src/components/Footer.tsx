@@ -34,6 +34,8 @@ export const Footer: React.FC = () => {
               <img
                 src="/images/logo.webp"
                 alt="Logo de CETECP"
+                width={600}
+                height={260}
                 loading="lazy"
                 decoding="async"
                 className="h-10 w-auto object-contain"
@@ -185,7 +187,7 @@ export const Footer: React.FC = () => {
                   }}
                   className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors mt-2"
                 >
-                  <span>Ver todo nuestro equipo médico &rarr;</span>
+                  <span>Ver todo nuestro equipo de especialistas &rarr;</span>
                 </a>
               </div>
             </div>

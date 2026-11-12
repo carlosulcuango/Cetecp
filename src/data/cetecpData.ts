@@ -388,7 +388,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
         description: "Desarrollo de articulación, fluidez verbal y expresión comunicativa.",
         targetAudience: "Primera infancia",
         assignedTherapistId: "lizbeth-ulcuango",
-        overview: "Acompañamiento especializado para niños que presentan retrasos en la adquisición del lenguaje, dislalias o dificultades en la expresión verbal. A través del juego estructurado, cantos y ejercicios praxicos, potenciamos el repertorio vocabular y articulatorio.",
+        overview: "Acompañamiento especializado para niños que presentan retrasos en la adquisición del lenguaje, dislalias o dificultades en la expresión verbal. A través del juego estructurado, cantos y ejercicios práxicos, potenciamos el repertorio vocabular y articulatorio.",
         methodologies: [
           "Ejercicios de articulación fonética y movilidad bucofacial.",
           "Juego simbólico guiado para ampliar la estructuración de oraciones.",
@@ -413,10 +413,10 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
           "Actividades sensorio-motrices y de exploración corporal.",
           "Ejercicios de coordinación visomotora y motricidad fina/gruesa.",
           "Interacción afectiva y socialización guiada.",
-          "Evaluación de hitos del desarrollo norma e intervención oportuna."
+          "Evaluación de hitos del desarrollo normativo e intervención oportuna."
         ],
         benefits: [
-          "Optimo aprovechamiento de la plasticidad cerebral infantil.",
+          "Óptimo aprovechamiento de la plasticidad cerebral infantil.",
           "Previene posibles rezagos en la maduración física o intelectual.",
           "Fortalece el vínculo afectivo entre padres e hijos.",
           "Prepara al niño con bases sólidas para el ingreso al nivel preescolar."
@@ -500,7 +500,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
         methodologies: [
           "Diagnóstico de factores de sobrecarga y vulnerabilidades de estrés.",
           "Técnicas de gestión del tiempo, delegación y establecimiento de límites.",
-          "Protocolos de desaceleración mental y descanso réparador.",
+          "Protocolos de desaceleración mental y descanso reparador.",
           "Reestructuración de la autoexigencia y el perfeccionismo nocivo."
         ],
         benefits: [

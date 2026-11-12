@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
   ArrowLeft, 
@@ -10,10 +10,11 @@ import {
   ShieldCheck, 
   UserCheck, 
   Sparkles,
-  ChevronRight,
-  HelpCircle
+  ChevronRight
 } from 'lucide-react';
 import { getServiceById, CETECP_INFO } from '../data/cetecpData';
+import { usePageMeta } from '../lib/usePageMeta';
+import { NotFound } from './NotFound';
 
 interface ServiceDetailProps {
   onOpenWhatsAppModal: () => void;
@@ -24,28 +25,22 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ onOpenWhatsAppModa
 
   const serviceData = serviceId ? getServiceById(serviceId) : null;
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [serviceId]);
+  usePageMeta(
+    serviceData
+      ? {
+          title: `${serviceData.service.title} en Quito | CETECP`,
+          description: `${serviceData.service.description} Atención profesional en CETECP, San Antonio de Pichincha, Quito.`,
+          path: `/servicios/${serviceData.service.id}`,
+        }
+      : { title: 'Servicio no encontrado | CETECP', noindex: true }
+  );
 
   if (!serviceData) {
     return (
-      <div className="min-h-screen bg-warmCream/30 pt-28 pb-16 px-4 flex flex-col items-center justify-center text-center">
-        <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-4">
-          <HelpCircle className="w-8 h-8" />
-        </div>
-        <h1 className="text-2xl font-bold text-slateCustom-900 mb-2">Servicio no encontrado</h1>
-        <p className="text-slate-600 text-sm max-w-md mb-6">
-          El servicio que buscas no existe o ha cambiado de dirección. Explora nuestro catálogo completo en la página principal.
-        </p>
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 bg-sage-600 hover:bg-sage-700 text-white text-sm font-semibold px-6 py-3 rounded-xl shadow-md transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Volver a la Página Principal</span>
-        </Link>
-      </div>
+      <NotFound
+        title="Servicio no encontrado"
+        message="El servicio que buscas no existe o ha cambiado de dirección. Explora nuestro catálogo completo en la página principal."
+      />
     );
   }
 

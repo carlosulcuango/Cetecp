@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, MessageCircle, Phone, UserCheck, ShieldCheck, ArrowRight } from 'lucide-react';
 import { THERAPISTS, CETECP_INFO } from '../data/cetecpData';
+import { useModalBehavior } from '../lib/useModalBehavior';
 
 interface WhatsAppModalProps {
   isOpen: boolean;
@@ -8,14 +9,22 @@ interface WhatsAppModalProps {
 }
 
 export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({ isOpen, onClose }) => {
+  useModalBehavior(isOpen, onClose);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slateCustom-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slateCustom-900/60 backdrop-blur-sm animate-in fade-in duration-200"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Selecciona a tu terapeuta"
+    >
       
       {/* Modal Container */}
       <div 
-        className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-sage-100 overflow-hidden transform animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-lg max-h-[92dvh] flex flex-col bg-white rounded-3xl shadow-2xl border border-sage-100 overflow-hidden transform animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -45,7 +54,7 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({ isOpen, onClose })
         </div>
 
         {/* Content Body */}
-        <div className="p-6 space-y-4 max-h-[75vh] overflow-y-auto bg-warmCream/30">
+        <div className="p-6 space-y-4 overflow-y-auto bg-warmCream/30">
           
           {THERAPISTS.map((therapist) => (
             <div
@@ -56,6 +65,8 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({ isOpen, onClose })
                 <img
                   src={therapist.image}
                   alt={therapist.name}
+                  loading="lazy"
+                  decoding="async"
                   className="w-14 h-14 rounded-2xl object-cover shrink-0 border border-sage-200 shadow-sm"
                 />
 
