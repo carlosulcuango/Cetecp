@@ -1,11 +1,14 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
+import { track } from '@vercel/analytics';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { NotFound } from './pages/NotFound';
 import { ServiceDetail } from './pages/ServiceDetail';
+import { TherapistProfile } from './pages/TherapistProfile';
+import { WhatsAppFab } from './components/WhatsAppFab';
 import { SERVICE_CATEGORIES } from './data/cetecpData';
 
 // El modal de WhatsApp se carga solo cuando se abre
@@ -33,6 +36,19 @@ export const AppContent: React.FC = () => {
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState<boolean>(false);
   const [activeCategoryTab, setActiveCategoryTab] = useState<string>(SERVICE_CATEGORIES[0].id);
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);
+
+  // Mide cuántas visitas terminan en un contacto: registra cada clic en un
+  // enlace de WhatsApp, con la página desde la que se hizo y el número de destino.
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      const link = (event.target as Element | null)?.closest?.('a[href*="wa.me/"]');
+      if (!link) return;
+      const numero = link.getAttribute('href')?.match(/wa\.me\/(\d+)/)?.[1] ?? '';
+      track('clic_whatsapp', { pagina: window.location.pathname, numero });
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
 
   const handleOpenWhatsAppModal = () => {
     setIsWhatsAppModalOpen(true);
@@ -87,12 +103,16 @@ export const AppContent: React.FC = () => {
           }
         />
 
+        <Route path="/equipo/:therapistId" element={<TherapistProfile />} />
+
         {/* Cualquier otra ruta: página 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
 
       {/* Footer */}
       <Footer />
+
+      {!isWhatsAppModalOpen && <WhatsAppFab onClick={handleOpenWhatsAppModal} />}
 
       {/* Direct WhatsApp Therapist Selection Modal (Lazy) */}
       <Suspense fallback={null}>

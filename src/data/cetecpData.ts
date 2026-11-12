@@ -617,3 +617,12 @@ export const getServiceById = (serviceId: string): { service: ServiceItem; categ
   }
   return null;
 };
+
+export const getTherapistById = (therapistId: string): Therapist | undefined =>
+  THERAPISTS.find((t) => t.id === therapistId);
+
+// Servicios asignados a una terapeuta, en el orden del catálogo
+export const getServicesByTherapist = (therapistId: string): ServiceItem[] =>
+  SERVICE_CATEGORIES.flatMap((category) =>
+    category.services.filter((service) => service.assignedTherapistId === therapistId)
+  );

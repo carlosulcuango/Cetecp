@@ -173,6 +173,9 @@ export const Home: React.FC<HomeProps> = ({
             </div>
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slateCustom-900 tracking-tight leading-[1.15]">
+              <span className="block text-sm sm:text-base font-semibold text-sage-700 tracking-normal leading-snug mb-3">
+                Centro psicológico y psicopedagógico en San Antonio de Pichincha, Quito
+              </span>
               Tu Espacio para el <span className="text-sage-600 bg-gradient-to-r from-sage-600 to-sage-700 bg-clip-text text-transparent">Bienestar Emocional</span>
             </h1>
 
@@ -787,7 +790,9 @@ export const Home: React.FC<HomeProps> = ({
                     className="w-40 h-40 sm:w-44 sm:h-44 rounded-full border-4 border-emerald-600/20 object-cover mx-auto mb-4 shadow-md group-hover:scale-105 transition-transform duration-200"
                   />
                   <h3 className="font-bold text-base sm:text-lg text-slateCustom-900 mb-1 leading-snug">
-                    {therapist.name}
+                    <Link to={`/equipo/${therapist.id}`} className="hover:text-sage-700 transition-colors">
+                      {therapist.name}
+                    </Link>
                   </h3>
                   <span className="text-emerald-700 font-bold text-[11px] uppercase tracking-wider mb-3 block min-h-[28px]">
                     {therapist.title}
@@ -1046,6 +1051,15 @@ export const Home: React.FC<HomeProps> = ({
                     <span>{selectedTherapist.email}</span>
                   </a>
                 )}
+
+                <Link
+                  to={`/equipo/${selectedTherapist.id}`}
+                  onClick={() => setSelectedTherapist(null)}
+                  className="inline-flex items-center gap-1.5 bg-white hover:bg-sage-50 text-slateCustom-800 text-xs font-semibold px-4 py-2.5 rounded-xl border border-sage-200 shadow-sm transition-colors"
+                >
+                  <span>Ver página de perfil</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-sage-600" />
+                </Link>
 
                 {selectedTherapist.linkedinUrl && (
                   <a

@@ -223,7 +223,11 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ onOpenWhatsAppModa
                     className="w-24 h-24 rounded-full border-4 border-emerald-600/20 object-cover mx-auto shadow-md"
                   />
                   <div>
-                    <h3 className="font-bold text-lg text-slateCustom-900">{therapist.name}</h3>
+                    <h3 className="font-bold text-lg text-slateCustom-900">
+                      <Link to={`/equipo/${therapist.id}`} className="hover:text-sage-700 transition-colors">
+                        {therapist.name}
+                      </Link>
+                    </h3>
                     <span className="text-emerald-700 font-bold text-xs uppercase tracking-wider block mt-0.5">
                       {therapist.title}
                     </span>

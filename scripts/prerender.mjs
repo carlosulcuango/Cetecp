@@ -69,6 +69,16 @@ function buildPage(routePath) {
       : `<link rel="canonical" href="${url}" />`,
     'canonical'
   );
+  if (meta.jsonLd.length > 0) {
+    // "<" escapado para que ningún texto pueda cerrar la etiqueta <script>
+    const blocks = meta.jsonLd
+      .map(
+        (data) =>
+          `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`
+      )
+      .join('\n    ');
+    html = replaceOnce(html, /<\/head>/, `  ${blocks}\n  </head>`, '</head>');
+  }
   html = replaceOnce(
     html,
     /<div id="root"><\/div>/,
