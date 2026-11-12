@@ -128,7 +128,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectServiceCategory, onOpenW
                 width={600}
                 height={260}
                 loading="eager"
-                fetchPriority="high"
+                // React 18 no conoce fetchPriority; en minúsculas llega tal cual al HTML
+                {...({ fetchpriority: 'high' } as object)}
                 decoding="async"
                 className="h-12 md:h-14 w-auto max-w-[220px] object-contain"
               />

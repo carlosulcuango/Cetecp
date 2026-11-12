@@ -13,7 +13,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { getServiceById, CETECP_INFO } from '../data/cetecpData';
-import { usePageMeta } from '../lib/usePageMeta';
+import { usePageMeta, serviceMeta } from '../lib/usePageMeta';
 import { NotFound } from './NotFound';
 
 interface ServiceDetailProps {
@@ -27,11 +27,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ onOpenWhatsAppModa
 
   usePageMeta(
     serviceData
-      ? {
-          title: `${serviceData.service.title} en Quito | CETECP`,
-          description: `${serviceData.service.description} Atención profesional en CETECP, San Antonio de Pichincha, Quito.`,
-          path: `/servicios/${serviceData.service.id}`,
-        }
+      ? serviceMeta(serviceData.service)
       : { title: 'Servicio no encontrado | CETECP', noindex: true }
   );
 

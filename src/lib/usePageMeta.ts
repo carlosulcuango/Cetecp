@@ -5,7 +5,7 @@ export const DEFAULT_TITLE = 'CETECP | Centro Psicológico Integral';
 export const DEFAULT_DESCRIPTION =
   'CETECP - Centro de Evaluación y Terapia Emocional, Conductual y Psicopedagógica en San Antonio de Pichincha, Quito. Atención profesional y confidencial en salud mental para niños, adultos, parejas y familias.';
 
-interface PageMeta {
+export interface PageMeta {
   title?: string;
   description?: string;
   /** Ruta de la página, p. ej. "/servicios/terapia-pareja" */
@@ -13,6 +13,13 @@ interface PageMeta {
   /** true para páginas que no deben indexarse (404) */
   noindex?: boolean;
 }
+
+// Metadatos de una página de servicio (los usan el navegador y el prerenderizado)
+export const serviceMeta = (service: { id: string; title: string; description: string }): PageMeta => ({
+  title: `${service.title} en Quito | CETECP`,
+  description: `${service.description} Atención profesional en CETECP, San Antonio de Pichincha, Quito.`,
+  path: `/servicios/${service.id}`,
+});
 
 const setAttr = (selector: string, attr: string, value: string) => {
   document.head.querySelector(selector)?.setAttribute(attr, value);

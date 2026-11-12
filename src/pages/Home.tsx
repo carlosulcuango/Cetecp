@@ -889,7 +889,7 @@ export const Home: React.FC<HomeProps> = ({
                     <div>
                       <span className="font-bold text-slateCustom-900 block">Dirección:</span>
                       <span className="text-slate-600 block">{CETECP_INFO.location}</span>
-                      <span className="text-[11px] text-slate-700 font-semibold font-mono block mt-0.5">Código Plus: XHQ3+4JM Quito</span>
+                      <span className="text-[11px] text-slate-700 font-semibold font-mono block mt-0.5">Código Plus: {CETECP_INFO.plusCode}</span>
                     </div>
                   </div>
                   <a
@@ -966,7 +966,7 @@ export const Home: React.FC<HomeProps> = ({
                 style={{ border: 0, borderRadius: '1.25rem' }}
                 allowFullScreen={true}
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+                referrerPolicy="strict-origin-when-cross-origin"
                 className="w-full h-full min-h-[400px] border-0"
               ></iframe>
             </div>

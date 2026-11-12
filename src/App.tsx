@@ -5,20 +5,12 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { NotFound } from './pages/NotFound';
+import { ServiceDetail } from './pages/ServiceDetail';
 import { SERVICE_CATEGORIES } from './data/cetecpData';
 
-// Code Splitting / Lazy Loading de vistas no críticas para el renderizado inicial
-const ServiceDetail = lazy(() =>
-  import('./pages/ServiceDetail').then((module) => ({ default: module.ServiceDetail }))
-);
+// El modal de WhatsApp se carga solo cuando se abre
 const WhatsAppModal = lazy(() =>
   import('./components/WhatsAppModal').then((module) => ({ default: module.WhatsAppModal }))
-);
-
-const PageFallback: React.FC = () => (
-  <div className="min-h-screen w-full flex items-center justify-center bg-warmCream/30">
-    <div className="w-8 h-8 border-4 border-sage-600 border-t-transparent rounded-full animate-spin" />
-  </div>
 );
 
 const ScrollToTop: React.FC = () => {
@@ -91,11 +83,7 @@ export const AppContent: React.FC = () => {
         <Route
           path="/servicios/:serviceId"
           element={
-            <Suspense fallback={<PageFallback />}>
-              <ServiceDetail
-                onOpenWhatsAppModal={handleOpenWhatsAppModal}
-              />
-            </Suspense>
+            <ServiceDetail onOpenWhatsAppModal={handleOpenWhatsAppModal} />
           }
         />
 

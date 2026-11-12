@@ -15,7 +15,7 @@ npm run dev
 | Comando | Qué hace |
 | --- | --- |
 | `npm run dev` | Servidor local con recarga |
-| `npm run build` | Verifica tipos y genera `dist/` |
+| `npm run build` | Verifica tipos, compila y prerenderiza en `dist/` |
 | `npm run lint` | ESLint |
 | `npm run preview` | Sirve el build localmente |
 
@@ -26,7 +26,8 @@ npm run dev
 - `src/components/` — barra de navegación, pie de página y modales.
 - `src/lib/reviews.ts` — lectura y envío de reseñas contra la API REST de Supabase.
 - `supabase/moderacion_resenas.sql` — trigger de moderación y políticas de acceso de la tabla `reseñas`.
-- `vercel.json` — cabeceras de seguridad, caché y la regla que sirve `index.html` en todas las rutas.
+- `scripts/prerender.mjs` — genera las páginas estáticas, el sitemap y la página 404 al compilar.
+- `vercel.json` — cabeceras de seguridad y caché.
 
 ## Reseñas
 
@@ -35,9 +36,11 @@ Las reseñas se aprueban automáticamente al enviarse, salvo que contengan insul
 - Para aprobar a mano una reseña retenida: Supabase → Table Editor → `reseñas` → poner `aprobado` en `true`.
 - Para cambiar la lista de palabras: editar `supabase/moderacion_resenas.sql` y volver a ejecutarlo en el SQL Editor.
 
-## Al añadir un servicio
+## Prerenderizado
 
-Añadir también su URL en `public/sitemap.xml` (`/servicios/<id>`).
+`npm run build` genera una página HTML estática por cada ruta (portada y cada servicio), con su contenido, título, descripción y canonical ya incluidos, para que los buscadores no dependan de ejecutar JavaScript. Lo hace `scripts/prerender.mjs` a partir de `src/entry-server.tsx`. También genera `sitemap.xml` y `404.html`.
+
+Al añadir un servicio en `cetecpData.ts`, su página y su entrada en el sitemap se crean solas en el siguiente build.
 
 ## Despliegue
 

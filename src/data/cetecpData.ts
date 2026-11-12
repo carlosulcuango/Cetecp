@@ -7,6 +7,7 @@ export interface CetecpInfo {
   location: string;
   address: string;
   googleMapsUrl: string;
+  plusCode: string;
   iframeSrc: string;
   schedule: string;
   logoUrl: string;
@@ -57,9 +58,10 @@ export const CETECP_INFO: CetecpInfo = {
   email: "cetecp2021@hotmail.com",
   location: "Quito, Parroquia San Antonio de Pichincha",
   address: "San Antonio de Pichincha, Quito, Ecuador",
-  googleMapsUrl: "https://www.google.com/maps/place/0%C2%B000'43.8%22S+78%C2%B026'45.5%22W/@-0.0121589,-78.445959,17z",
+  googleMapsUrl: "https://www.google.com/maps/place/0%C2%B000'27.0%22S+78%C2%B026'48.5%22W/@-0.0075,-78.4468056,17z",
+  plusCode: "XHV3+274 Quito",
   iframeSrc:
-    "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3989.81648083811!2d-78.445959!3d-0.0121589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMDAnNDMuOCJTIDc4wrAyNic0NS41Ilc!5e0!3m2!1ses!2sec!4v1710000000000!5m2!1ses!2sec",
+    "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d5023.638388966697!2d-78.44938082503539!3d-0.007498999992423682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMDAnMjcuMCJTIDc4wrAyNic0OC41Ilc!5e1!3m2!1ses!2sec!4v1794443994488!5m2!1ses!2sec",
   schedule: "Lunes a Sábado: 08:00 - 18:00",
   logoUrl: "/images/logo.webp",
   facebookUrl: "https://www.facebook.com/share/1AbPLvRGt6/",
