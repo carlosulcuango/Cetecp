@@ -41,6 +41,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ onOpenWhatsAppModa
   }
 
   const { service, category, therapist } = serviceData;
+  const relatedServices = category.services.filter((item) => item.id !== service.id);
 
   const therapistWhatsappUrl = therapist
     ? `https://wa.me/${therapist.phoneRaw || '593981827618'}?text=${encodeURIComponent(
@@ -200,6 +201,33 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ onOpenWhatsAppModa
             </div>
 
           </div>
+
+          {/* Section: Servicios relacionados */}
+          {relatedServices.length > 0 && (
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200/80 shadow-sm space-y-5">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-sage-600">{category.title}</span>
+                <h2 className="text-xl font-bold text-slateCustom-900">Servicios relacionados</h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {relatedServices.map((related) => (
+                  <Link
+                    key={related.id}
+                    to={`/servicios/${related.id}`}
+                    className="p-4 rounded-2xl border border-sage-100 bg-warmCream/30 hover:border-sage-300 hover:shadow-md transition-all group"
+                  >
+                    <span className="font-bold text-sm text-slateCustom-900 group-hover:text-sage-700 flex items-center justify-between gap-2">
+                      {related.title}
+                      <ChevronRight className="w-4 h-4 shrink-0 text-sage-600" />
+                    </span>
+                    <span className="text-xs text-slate-600 leading-relaxed block mt-1">
+                      {related.description}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
         </div>
 
