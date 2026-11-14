@@ -13,6 +13,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { getServiceById, CETECP_INFO } from '../data/cetecpData';
+import { SERVICE_EXTRAS } from '../data/serviceExtras';
 import { usePageMeta, serviceMeta } from '../lib/usePageMeta';
 import { NotFound } from './NotFound';
 
@@ -42,6 +43,7 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ onOpenWhatsAppModa
 
   const { service, category, therapist } = serviceData;
   const relatedServices = category.services.filter((item) => item.id !== service.id);
+  const extras = SERVICE_EXTRAS[service.id];
 
   const therapistWhatsappUrl = therapist
     ? `https://wa.me/${therapist.phoneRaw || '593981827618'}?text=${encodeURIComponent(
@@ -201,6 +203,48 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ onOpenWhatsAppModa
             </div>
 
           </div>
+
+          {/* Section: ¿Cuándo consultar? */}
+          {extras && extras.signs.length > 0 && (
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200/80 shadow-sm space-y-5">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-sage-600">Señales a tener en cuenta</span>
+                <h2 className="text-xl font-bold text-slateCustom-900">¿Cuándo consultar?</h2>
+              </div>
+              <ul className="space-y-2.5">
+                {extras.signs.map((sign) => (
+                  <li key={sign} className="flex items-start gap-3 text-sm text-slate-800 leading-relaxed">
+                    <CheckCircle2 className="w-4 h-4 text-sage-600 shrink-0 mt-1" />
+                    <span>{sign}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Esta lista es orientativa y no reemplaza una valoración profesional.
+              </p>
+            </div>
+          )}
+
+          {/* Section: Preguntas frecuentes */}
+          {extras && extras.faqs.length > 0 && (
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200/80 shadow-sm space-y-5">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-sage-600">Resolvemos tus dudas</span>
+                <h2 className="text-xl font-bold text-slateCustom-900">Preguntas frecuentes</h2>
+              </div>
+              <div className="space-y-3">
+                {extras.faqs.map((faq) => (
+                  <details key={faq.question} className="group bg-warmCream/40 rounded-2xl border border-sage-100 open:border-sage-300">
+                    <summary className="cursor-pointer list-none p-4 flex items-center justify-between gap-3 font-bold text-sm text-slateCustom-900">
+                      <span>{faq.question}</span>
+                      <ChevronRight className="w-4 h-4 shrink-0 text-sage-600 transition-transform group-open:rotate-90" />
+                    </summary>
+                    <p className="px-4 pb-4 text-sm text-slate-700 leading-relaxed">{faq.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Section: Servicios relacionados */}
           {relatedServices.length > 0 && (
